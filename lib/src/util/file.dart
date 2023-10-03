@@ -31,29 +31,29 @@ class FileUtil {
   }
 
   // static Future<bool> saveImageWithPath(String path, {String? title}) async {
-    // await PermissionUtil.requestMedia();
-    // if (appEnv.isAndroid) {
-    //   try {
-    //     await ImageGallerySaver.saveFile(path, name: title, folder: "LinJie");
-    //   } catch (e) {
-    //     return false;
-    //   }
-    //   return true;
-    // } else {
-    //   try {
-    //     final ph = await PhotoManager.requestPermissionExtend();
-    //     if (ph.isAuth) {
-    //       await PhotoManager.editor
-    //           .saveImageWithPath(path, title: path.substringAfterLast("/"));
-    //     } else {
-    //       // 这个无法保存 gif
-    //       await ImageGallerySaver.saveFile(path);
-    //     }
-    //     return true;
-    //   } catch (e) {
-    //     return false;
-    //   }
-    // }
+  // await PermissionUtil.requestMedia();
+  // if (appEnv.isAndroid) {
+  //   try {
+  //     await ImageGallerySaver.saveFile(path, name: title, folder: "LinJie");
+  //   } catch (e) {
+  //     return false;
+  //   }
+  //   return true;
+  // } else {
+  //   try {
+  //     final ph = await PhotoManager.requestPermissionExtend();
+  //     if (ph.isAuth) {
+  //       await PhotoManager.editor
+  //           .saveImageWithPath(path, title: path.substringAfterLast("/"));
+  //     } else {
+  //       // 这个无法保存 gif
+  //       await ImageGallerySaver.saveFile(path);
+  //     }
+  //     return true;
+  //   } catch (e) {
+  //     return false;
+  //   }
+  // }
   // }
 
   // static Future<void> clearCache() async {
