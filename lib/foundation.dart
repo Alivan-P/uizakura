@@ -12,6 +12,7 @@ export "src/page/base_page.dart";
 export "src/page/view_model.dart";
 export "src/async_state/async_state.dart";
 export "src/widget/image.dart";
+export "src/util/color.dart";
 
 Future<void> initialize() async {
   await appEnv.init();
