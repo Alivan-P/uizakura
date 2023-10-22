@@ -14,6 +14,8 @@ export "src/page/base_page.dart";
 export "src/page/view_model.dart";
 export "src/async_state/async_state.dart";
 export "src/widget/image.dart";
+export "src/widget/after_layout.dart";
+export "src/widget/loading.dart";
 export "src/util/color.dart";
 export "src/lifecycle/lifecycle.dart";
 export "src/lifecycle/state.dart";
