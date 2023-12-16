@@ -18,6 +18,7 @@ export "src/widget/image.dart";
 export "src/widget/after_layout.dart";
 export "src/widget/overlay.dart";
 export "src/widget/click.dart";
+export "src/widget/load_more.dart";
 export "src/util/color.dart";
 export "src/lifecycle/lifecycle.dart";
 export "src/lifecycle/state.dart";

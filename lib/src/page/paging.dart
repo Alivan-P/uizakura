@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 
 /// @author luwenjie on 2023/10/22 22:22:25
-abstract class ListPagingDateSource<T> {
+abstract class PagingDateSource<T> {
   final List<T> _all = <T>[];
   ListPaging<T>? previousPaging;
   final ValueNotifier<ListPaging<T>?> _dataNotifier = ValueNotifier(null);
@@ -11,7 +11,7 @@ abstract class ListPagingDateSource<T> {
   // flag cache
   var cache = true;
 
-  ListPagingDateSource();
+  PagingDateSource();
 
   Function() listen(Function(ListPaging<T>) f) {
     l() {
@@ -27,20 +27,11 @@ abstract class ListPagingDateSource<T> {
   }
 
   Future<ListPaging<T>> getList(bool refresh) async {
-    int offset;
-    if (refresh) {
-      offset = 0;
-      if (refresh && cache) {
-        previousPaging = null;
-      }
-    } else {
-      offset = _all.length;
+    if (refresh && cache) {
+      previousPaging = null;
     }
     try {
-      final itemPaging =
-          (await fetchPage(cache ? previousPaging : null)).copyWith(
-        startingIndex: offset,
-      );
+      final itemPaging = (await fetchPage(cache ? previousPaging : null));
       if (itemPaging.isSuccess) {
         if (refresh) {
           if (cache) {
@@ -52,15 +43,14 @@ abstract class ListPagingDateSource<T> {
           _all.addAll(itemPaging.items);
         }
       }
-
       _dataNotifier.value = itemPaging;
       return itemPaging;
-    } catch (e, strace) {
+    } catch (e) {
       return ListPaging(
           items: [],
           errorMessage: e.toString(),
           isSuccess: false,
-          hasMore: true);
+          hasMore: false);
     }
   }
 
@@ -76,17 +66,14 @@ abstract class ListPagingDateSource<T> {
 class ListPaging<T> {
   final List<T> items;
   bool isSuccess;
-  final int offset;
   final int total;
   final String? cursor;
   final bool hasMore;
   final String errorMessage;
 
-//<editor-fold desc="Data Methods">
   ListPaging({
     this.items = const [],
     this.isSuccess = true,
-    this.offset = 0,
     this.total = 0,
     this.hasMore = true,
     this.cursor,
@@ -100,7 +87,6 @@ class ListPaging<T> {
           runtimeType == other.runtimeType &&
           items == other.items &&
           isSuccess == other.isSuccess &&
-          offset == other.offset &&
           total == other.total &&
           hasMore == other.hasMore &&
           cursor == other.cursor &&
@@ -111,14 +97,13 @@ class ListPaging<T> {
       items.hashCode ^
       isSuccess.hashCode ^
       total.hashCode ^
-      offset.hashCode ^
       hasMore.hashCode ^
       cursor.hashCode ^
       errorMessage.hashCode;
 
   @override
   String toString() {
-    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, startingIndex: $offset, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor,}';
+    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor,}';
   }
 
   ListPaging<T> copyWith({
@@ -133,7 +118,6 @@ class ListPaging<T> {
     return ListPaging(
       items: items ?? this.items,
       isSuccess: success ?? this.isSuccess,
-      offset: startingIndex ?? this.offset,
       hasMore: hasMore ?? this.hasMore,
       errorMessage: errorMessage ?? this.errorMessage,
       cursor: next ?? this.cursor,
@@ -145,7 +129,6 @@ class ListPaging<T> {
     return {
       'items': this.items,
       'success': this.isSuccess,
-      'startingIndex': this.offset,
       'hasMore': this.hasMore,
       'errorMessage': this.errorMessage,
     };
@@ -155,11 +138,8 @@ class ListPaging<T> {
     return ListPaging(
       items: map['items'] as List<T>,
       isSuccess: map['success'] as bool,
-      offset: map['startingIndex'] as int,
       hasMore: map['hasMore'] as bool,
       errorMessage: map['errorMessage'] as String,
     );
   }
-
-//</editor-fold>
 }
