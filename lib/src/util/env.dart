@@ -27,11 +27,13 @@ class _AppEnv {
 
   get isRelease => kReleaseMode;
 
-  get isAndroid => Platform.isAndroid;
+  get isAndroid => kIsWeb ? false : Platform.isAndroid;
 
-  get isWindows => Platform.isWindows;
+  get isWindows => kIsWeb ? false : Platform.isWindows;
 
-  get isMobile => Platform.isAndroid || Platform.isIOS;
+  get isMobile => kIsWeb ? false : Platform.isAndroid || Platform.isIOS;
 
-  get isDesktop => Platform.isLinux || Platform.isWindows || Platform.isMacOS;
+  get isDesktop => kIsWeb
+      ? false
+      : Platform.isLinux || Platform.isWindows || Platform.isMacOS;
 }

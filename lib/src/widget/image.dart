@@ -8,7 +8,7 @@ import 'package:wen_foundation/foundation.dart';
 
 class _ImageManager {
   static const key = 'libCachedImageData';
-  static final CacheManager cacheManager = CacheManager(
+  static CacheManager cacheManager = CacheManager(
     Config(
       key,
       stalePeriod: const Duration(days: 7),
@@ -32,6 +32,12 @@ class _ImageManager {
 class WenImage extends StatefulWidget {
   static clear() {
     _ImageManager.clearCache();
+  }
+
+  static CacheManager get cacheManager => _ImageManager.cacheManager;
+
+  static set cacheManager(v) {
+    _ImageManager.cacheManager = v;
   }
 
   /// Evict an image from both the disk file based caching system of the

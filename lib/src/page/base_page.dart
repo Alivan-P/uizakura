@@ -15,7 +15,6 @@ abstract class BasePageState<T extends BasePage> extends ConsumerState<T>
     with WidgetsBindingObserver, AfterLayoutMixin<T> {
   final _disposeSet = <Function?>[];
   final _disposeFutures = <Future<dynamic>>[];
-
   @override
   void initState() {
     super.initState();
