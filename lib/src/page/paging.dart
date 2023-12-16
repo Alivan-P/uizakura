@@ -30,7 +30,7 @@ abstract class ListCursorApiRepo<T> {
     int offset;
     if (refresh) {
       offset = 0;
-      if (cache) {
+      if (refresh && cache) {
         previousPaging = null;
       }
     } else {
@@ -58,7 +58,7 @@ abstract class ListCursorApiRepo<T> {
     } catch (e, strace) {
       return ListPaging(
           items: [],
-          startingIndex: all.length,
+          errorMessage: e.toString(),
           isSuccess: false,
           hasMore: true);
     }
@@ -76,7 +76,7 @@ abstract class ListCursorApiRepo<T> {
 class ListPaging<T> {
   final List<T> items;
   bool isSuccess;
-  final int startingIndex;
+  final int offset;
   final int total;
   final String? cursor;
   final bool hasMore;
@@ -86,7 +86,7 @@ class ListPaging<T> {
   ListPaging({
     this.items = const [],
     this.isSuccess = true,
-    this.startingIndex = 0,
+    this.offset = 0,
     this.total = 0,
     this.hasMore = true,
     this.cursor,
@@ -100,7 +100,7 @@ class ListPaging<T> {
           runtimeType == other.runtimeType &&
           items == other.items &&
           isSuccess == other.isSuccess &&
-          startingIndex == other.startingIndex &&
+          offset == other.offset &&
           total == other.total &&
           hasMore == other.hasMore &&
           cursor == other.cursor &&
@@ -111,14 +111,14 @@ class ListPaging<T> {
       items.hashCode ^
       isSuccess.hashCode ^
       total.hashCode ^
-      startingIndex.hashCode ^
+      offset.hashCode ^
       hasMore.hashCode ^
       cursor.hashCode ^
       errorMessage.hashCode;
 
   @override
   String toString() {
-    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, startingIndex: $startingIndex, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor,}';
+    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, startingIndex: $offset, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor,}';
   }
 
   ListPaging<T> copyWith({
@@ -133,7 +133,7 @@ class ListPaging<T> {
     return ListPaging(
       items: items ?? this.items,
       isSuccess: success ?? this.isSuccess,
-      startingIndex: startingIndex ?? this.startingIndex,
+      offset: startingIndex ?? this.offset,
       hasMore: hasMore ?? this.hasMore,
       errorMessage: errorMessage ?? this.errorMessage,
       cursor: next ?? this.cursor,
@@ -145,7 +145,7 @@ class ListPaging<T> {
     return {
       'items': this.items,
       'success': this.isSuccess,
-      'startingIndex': this.startingIndex,
+      'startingIndex': this.offset,
       'hasMore': this.hasMore,
       'errorMessage': this.errorMessage,
     };
@@ -155,7 +155,7 @@ class ListPaging<T> {
     return ListPaging(
       items: map['items'] as List<T>,
       isSuccess: map['success'] as bool,
-      startingIndex: map['startingIndex'] as int,
+      offset: map['startingIndex'] as int,
       hasMore: map['hasMore'] as bool,
       errorMessage: map['errorMessage'] as String,
     );
