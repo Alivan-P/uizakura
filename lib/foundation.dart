@@ -10,6 +10,7 @@ export "src/util/file.dart";
 export "src/util/string_extension.dart";
 export 'src/widget/widget_extension.dart';
 export "src/util/file_picker.dart";
+export "src/util/date.dart";
 export "src/page/base_page.dart";
 export "src/page/view_model.dart";
 export 'src/page/paging.dart';
