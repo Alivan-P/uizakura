@@ -151,27 +151,53 @@ class WenImage extends StatefulWidget {
 }
 
 class _CongImage extends State<WenImage> {
-  late final assetsPath = widget.assetPath;
-  late final width = widget.width;
-  late final height = widget.height;
-  late final fit = widget.fit;
-  late final url = widget.url;
-  late final backgroundColor = widget.backgroundColor;
-  late final errorWidget = widget.errorWidget;
-  late final placeholder = widget.placeholder;
-  late final placeColor = widget.placeColor;
-  late final httpHeaders = widget.httpHeaders;
-  late final imageBuilder = widget.imageBuilder;
+  String get assetPath => widget.assetPath;
+
+  double? get width => widget.width;
+
+  double? get height => widget.height;
+
+  BoxFit? get fit => widget.fit;
+
+  String? get url => widget.url;
+
+  Color? get backgroundColor => widget.backgroundColor;
+
+  LoadingErrorWidgetBuilder? get errorWidget => widget.errorWidget;
+
+  PlaceholderWidgetBuilder? get placeholder => widget.placeholder;
+
+  Color? get placeColor => widget.placeColor;
+
+  Map<String, String>? get httpHeaders => widget.httpHeaders;
+
+  ImageWidgetBuilder? get imageBuilder => widget.imageBuilder;
 
   @override
   Widget build(BuildContext context) {
+    if (widget.cacheKey?.isNotEmpty == true && widget.noCache) {
+      throw const Text(
+        "nocache is true but cacheKey isNotEmpty",
+        style: TextStyle(backgroundColor: Colors.red, color: Colors.white),
+      );
+    }
     return _body(context);
   }
 
   @override
   void didUpdateWidget(covariant WenImage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.fit != fit) {
+    if (oldWidget.fit != fit ||
+        oldWidget.width != width ||
+        oldWidget.height != height ||
+        oldWidget.httpHeaders != httpHeaders ||
+        oldWidget.url != url ||
+        oldWidget.assetPath != assetPath ||
+        oldWidget.file != widget.file ||
+        oldWidget.backgroundColor != widget.backgroundColor ||
+        oldWidget.tintColor != widget.tintColor ||
+        oldWidget.placeColor != widget.placeColor ||
+        oldWidget.cacheKey != widget.cacheKey) {
       setState(() {});
     }
   }
@@ -188,10 +214,10 @@ class _CongImage extends State<WenImage> {
         cacheWidth: width != null ? width!.toInt() * 3 : null,
       );
     }
-    if (assetsPath.isNotEmpty) {
-      if (assetsPath.endsWith(".svg")) {
+    if (assetPath.isNotEmpty) {
+      if (assetPath.endsWith(".svg")) {
         return SvgPicture.asset(
-          assetsPath,
+          assetPath,
           width: width,
           colorFilter: widget.tintColor != null
               ? ColorFilter.mode(widget.tintColor!, BlendMode.srcIn)
@@ -204,7 +230,7 @@ class _CongImage extends State<WenImage> {
         width: width,
         height: height,
         child: Image.asset(
-          assetsPath,
+          assetPath,
           width: width,
           height: height,
           color: widget.tintColor,
@@ -244,7 +270,8 @@ class _CongImage extends State<WenImage> {
       memCacheWidth: width == null ? null : ((width?.toInt() ?? 0) * 4),
       errorWidget: errorWidget ?? defaultErrorWidget,
       imageBuilder: imageBuilder,
-      cacheKey: widget.noCache ? DateTime.now().toString() : aUrl,
+      cacheKey: widget.cacheKey ??
+          (widget.noCache ? DateTime.now().toString() : aUrl),
     );
   }
 
