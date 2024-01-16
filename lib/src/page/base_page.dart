@@ -1,17 +1,17 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:wen_foundation/src/widget/after_layout.dart';
+import 'package:lu_foundation/src/widget/after_layout.dart';
 
 /// @author luwenjie on 2023/4/28 11:22:13
 ///
 ///
 /// @author luwenjie on 2023/4/28 11:17:22
 
-abstract class BasePage extends ConsumerStatefulWidget {
-  const BasePage({super.key});
+abstract class LuPage extends ConsumerStatefulWidget {
+  const LuPage({super.key});
 }
 
-abstract class BasePageState<T extends BasePage> extends ConsumerState<T>
+abstract class LuPageState<T extends LuPage> extends ConsumerState<T>
     with WidgetsBindingObserver, AfterLayoutMixin<T> {
   final _disposeSet = <Function?>[];
   final _disposeFutures = <Future<dynamic>>[];

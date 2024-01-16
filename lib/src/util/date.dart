@@ -2,7 +2,7 @@
 
 import 'package:intl/intl.dart';
 
-class DateUtil {
+class LuDateUtil {
   static int _offset = 0;
   static const hour48Mills = 48 * 60 * 60 * 1000;
   static const hour24Mills = 24 * 60 * 60 * 1000;

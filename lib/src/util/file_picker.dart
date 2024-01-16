@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:wen_foundation/foundation.dart';
+import 'package:lu_foundation/foundation.dart';
 
 class PickFile {
   final String filePath;
@@ -14,7 +14,7 @@ class PickFile {
   PickFile({required this.filePath, this.mimeType = "", this.androidUri = ""});
 }
 
-class CongPicker {
+class LuFilePicker {
   static Future<Async<List<PickFile>>> pickMedia(BuildContext context,
       {bool allowMultiple = false}) async {
     try {

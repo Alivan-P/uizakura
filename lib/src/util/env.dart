@@ -5,35 +5,33 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// @author luwenjie on 2023/9/14 22:47:54
 
-final appEnv = _AppEnv();
+class LuAppEnv {
+  static String _version = "";
+  static String _buildCode = "";
+  static int utcDeltaSeconds = 0;
 
-class _AppEnv {
-  String _version = "";
-  String _buildCode = "";
-  int utcDeltaSeconds = 0;
+  static String get version => _version;
 
-  String get version => _version;
+  static String get buildCode => _buildCode;
 
-  String get buildCode => _buildCode;
-
-  Future<void> init() async {
+  static Future<void> init() async {
     await PackageInfo.fromPlatform().then((value) {
       _version = value.version;
       _buildCode = value.buildNumber;
     });
   }
 
-  get isDebug => kDebugMode;
+  static get isDebug => kDebugMode;
 
-  get isRelease => kReleaseMode;
+  static get isRelease => kReleaseMode;
 
-  get isAndroid => kIsWeb ? false : Platform.isAndroid;
+  static get isAndroid => kIsWeb ? false : Platform.isAndroid;
 
-  get isWindows => kIsWeb ? false : Platform.isWindows;
+  static get isWindows => kIsWeb ? false : Platform.isWindows;
 
-  get isMobile => kIsWeb ? false : Platform.isAndroid || Platform.isIOS;
+  static get isMobile => kIsWeb ? false : Platform.isAndroid || Platform.isIOS;
 
-  get isDesktop => kIsWeb
+  static get isDesktop => kIsWeb
       ? false
       : Platform.isLinux || Platform.isWindows || Platform.isMacOS;
 }
