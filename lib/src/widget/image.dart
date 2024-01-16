@@ -4,7 +4,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:wen_foundation/foundation.dart';
+import 'package:lu_foundation/foundation.dart';
 
 class _ImageManager {
   static const key = 'libCachedImageData';
@@ -29,7 +29,7 @@ class _ImageManager {
   }
 }
 
-class WenImage extends StatefulWidget {
+class LuImage extends StatefulWidget {
   static clear() {
     _ImageManager.clearCache();
   }
@@ -109,7 +109,7 @@ class WenImage extends StatefulWidget {
   /// Will resize the image and store the resized image in the disk cache.
   final int? maxHeightDiskCache;
 
-  WenImage({
+  LuImage({
     Key? key,
     this.url,
     this.file,
@@ -150,7 +150,7 @@ class WenImage extends StatefulWidget {
   }
 }
 
-class _CongImage extends State<WenImage> {
+class _CongImage extends State<LuImage> {
   String get assetPath => widget.assetPath;
 
   double? get width => widget.width;
@@ -185,7 +185,7 @@ class _CongImage extends State<WenImage> {
   }
 
   @override
-  void didUpdateWidget(covariant WenImage oldWidget) {
+  void didUpdateWidget(covariant LuImage oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (oldWidget.fit != fit ||
         oldWidget.width != width ||
@@ -313,7 +313,7 @@ class _CongImage extends State<WenImage> {
         width: width,
         height: height,
         color: color?.withAlpha(50),
-        child: appEnv.isDebug ? Text("${color?.toString()}") : null,
+        child: LuAppEnv.isDebug ? Text("${color?.toString()}") : null,
       );
 
   @override

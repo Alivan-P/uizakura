@@ -2,42 +2,9 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
-import 'package:wen_foundation/foundation.dart';
+import 'package:lu_foundation/foundation.dart';
 
 /// @author luwenjie on 2023/10/10 11:50:23
-
-extension SpaceIntExtenstion on int {
-  SizedBox get spaceHorizontal {
-    return SizedBox(
-      width: toDouble(),
-      height: 0,
-    );
-  }
-
-  SizedBox get spaceVertical {
-    return SizedBox(
-      height: toDouble(),
-      width: 0,
-    );
-  }
-}
-
-extension SpaceDoubleExtenstion on double {
-  SizedBox get spaceHorizontal {
-    return SizedBox(
-      width: this,
-      height: 0,
-    );
-  }
-
-  SizedBox get spaceVertical {
-    return SizedBox(
-      height: this,
-      width: 0,
-    );
-  }
-}
 
 extension GlobalKeyExtenstion on GlobalKey {
   RenderBox get renderBox => currentContext?.findRenderObject() as RenderBox;
