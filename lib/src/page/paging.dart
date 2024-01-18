@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/foundation.dart';
 
 /// @author luwenjie on 2023/10/22 22:22:25
@@ -8,8 +10,8 @@ abstract class PagingDateSource<T> {
 
   List<T> get all => _all;
 
-  // flag cache
-  var cache = true;
+  // no effect with [all] [previousPaging]
+  var _dryRun = false;
 
   PagingDateSource();
 
@@ -26,19 +28,27 @@ abstract class PagingDateSource<T> {
     };
   }
 
+  Future<void> dryRun(FutureOr<dynamic>? Function() block) async {
+    _dryRun = true;
+    await block.call();
+    _dryRun = false;
+  }
+
   Future<ListPaging<T>> getList(bool refresh) async {
-    if (refresh && cache) {
-      previousPaging = null;
+    if (refresh) {
+      if (!_dryRun) {
+        previousPaging = null;
+      }
     }
     try {
-      final itemPaging = (await fetchPage(cache ? previousPaging : null));
+      final itemPaging = (await fetchPage(!_dryRun ? previousPaging : null));
       if (itemPaging.isSuccess) {
         if (refresh) {
-          if (cache) {
+          if (!_dryRun) {
             _all.clear();
           }
         }
-        if (cache) {
+        if (!_dryRun) {
           previousPaging = itemPaging;
           _all.addAll(itemPaging.items);
         }
@@ -57,9 +67,9 @@ abstract class PagingDateSource<T> {
   @protected
   Future<ListPaging<T>> fetchPage(ListPaging<T>? previousPaging);
 
-  void update(List<T> newl) {
+  void setData(List<T> list) {
     _all.clear();
-    _all.addAll(newl);
+    _all.addAll(list);
   }
 }
 
