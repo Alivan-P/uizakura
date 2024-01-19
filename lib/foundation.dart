@@ -16,6 +16,7 @@ export "src/util/env.dart";
 export "src/util/file.dart";
 export "src/util/file_picker.dart";
 export "src/util/string_extension.dart";
+export "src/util/list_extension.dart";
 export "src/widget/after_layout.dart";
 export "src/widget/click.dart";
 export "src/widget/image.dart";
