@@ -6,6 +6,7 @@ export "src/async_state/async_state.dart";
 export "src/lifecycle/lifecycle.dart";
 export "src/lifecycle/observer.dart";
 export "src/lifecycle/state.dart";
+export "src/lifecycle/widget.dart";
 export "src/page/base_page.dart";
 export 'src/page/paging.dart';
 export "src/page/view_model.dart";
