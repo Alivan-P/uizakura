@@ -8,12 +8,12 @@ import 'state.dart' as lifecycle_state;
 
 class LifecycleAware extends StatefulWidget {
   final Function(BuildContext context, lifecycle_lifecycle.LifecycleOwner owner)
-      childBuilder;
+      builder;
   final FullLifecycleObserver? observer;
 
   const LifecycleAware({
     super.key,
-    required this.childBuilder,
+    required this.builder,
     this.observer,
   });
 
@@ -86,7 +86,7 @@ class LifecycleAwareState<T extends LifecycleAware> extends State<T>
 
   @protected
   Widget buildPage(BuildContext context) {
-    return widget.childBuilder.call(context, this);
+    return widget.builder.call(context, this);
   }
 
   @override
