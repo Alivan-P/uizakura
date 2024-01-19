@@ -24,6 +24,7 @@ export "src/widget/image.dart";
 export "src/widget/load_more.dart";
 export "src/widget/notifier.dart";
 export "src/widget/overlay.dart";
+export "src/widget/scroll_extension.dart";
 
 /// @author luwenjie on 2023/9/15 00:11:57
 
