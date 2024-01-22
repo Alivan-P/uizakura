@@ -1,4 +1,5 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter_displaymode/flutter_displaymode.dart';
 
 import 'foundation.dart';
 
@@ -33,6 +34,16 @@ export 'src/widget/widget_extension.dart';
 
 Future<void> initialize() async {
   await LuAppEnv.init();
+  await _setHighRate();
+}
+
+// 适配 coloros 等系统高刷，默认帧率很低
+Future<void> _setHighRate() async {
+  try {
+    await FlutterDisplayMode.setHighRefreshRate();
+  } catch (e) {
+    debugPrint("$e");
+  }
 }
 
 Future<void> initializeWithContext(BuildContext context) async {
