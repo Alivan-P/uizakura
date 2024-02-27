@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_displaymode/flutter_displaymode.dart';
 
-import 'foundation.dart';
+import 'uizakura.dart';
 
 export "src/async_state/async_state.dart";
 export "src/lifecycle/lifecycle.dart";
@@ -18,6 +18,8 @@ export "src/util/file.dart";
 export "src/util/file_picker.dart";
 export "src/util/string_extension.dart";
 export "src/util/list_extension.dart";
+export "src/util/log.dart";
+export "src/util/screen_size.dart";
 export "src/util/event_bus.dart";
 export "src/widget/after_layout.dart";
 export "src/widget/click.dart";
@@ -33,7 +35,7 @@ export 'src/widget/toast.dart';
 export 'src/widget/widget_extension.dart';
 
 Future<void> initialize() async {
-  await LuAppEnv.init();
+  await UizakuraAppEnv.init();
   await _setHighRate();
 }
 
