@@ -2,10 +2,10 @@ import 'package:flutter/foundation.dart';
 
 /// @author luwenjie on 2024/1/16 17:27:13
 
-class LuNotifier extends ChangeNotifier {
+class UizakuraNotifier extends ChangeNotifier {
   final String id;
 
-  LuNotifier({this.id = ""});
+  UizakuraNotifier({this.id = ""});
 
   @override
   void notifyListeners() {

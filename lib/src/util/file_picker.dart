@@ -2,7 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:lu_foundation/foundation.dart';
+import 'package:uizakura/uizakura.dart';
 
 class PickFile {
   final String filePath;

@@ -1,5 +1,5 @@
-name: lu_foundation
-description: A new Flutter project.
+name: uizakura
+description: The first cherry blossoms of the season open their soft petals to the delight of a world that has been waiting just for them, proof of nature’s awakening after the long winter. Pure and delicate, these flowers are the light pink color of an innocent blush, blooming in waves to greet the spring and their many admirers.
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
@@ -44,6 +44,7 @@ dependencies:
   cached_network_image: ^3.3.0
   icloud_storage: ^2.2.0
   dyno: ^0.0.4
+  gap: ^3.0.1
   isolate: ^2.1.1
   connectivity_plus: ^5.0.2
   json_annotation: ^4.8.1

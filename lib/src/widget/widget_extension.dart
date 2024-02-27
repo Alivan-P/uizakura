@@ -2,7 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:lu_foundation/foundation.dart';
+import 'package:gap/gap.dart';
+import 'package:uizakura/uizakura.dart';
 
 /// @author luwenjie on 2023/10/10 11:50:23
 
@@ -12,6 +13,12 @@ extension GlobalKeyExtenstion on GlobalKey {
   Offset get globalOffset => renderBox.localToGlobal(
         Offset.zero,
       );
+}
+
+extension GapExtension on num {
+  Gap get gap {
+    return Gap(toDouble());
+  }
 }
 
 extension ContextExtenstion on BuildContext {

@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 
 /// @author luwenjie on 2023/10/3 16:48:39
 ///
-class LuColorUtil {
+class UizakuraColorUtil {
   static Color inverseColor(Color color) {
     return Color.fromARGB(
       color.alpha,
@@ -32,5 +32,5 @@ class LuColorUtil {
 }
 
 extension ColorExtension on Color {
-  Color get inverse => LuColorUtil.inverseColor(this);
+  Color get inverse => UizakuraColorUtil.inverseColor(this);
 }

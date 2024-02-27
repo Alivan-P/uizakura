@@ -2,8 +2,8 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:lu_foundation/foundation.dart';
-import 'package:lu_foundation/src/widget/click.dart';
+import 'package:uizakura/uizakura.dart';
+import 'package:uizakura/src/widget/click.dart';
 
 /// @author luwenjie on 2023/9/28 16:24:44
 ///

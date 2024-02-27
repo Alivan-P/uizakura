@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 
 /// @author luwenjie on 2023/10/22 22:22:25
-abstract class PagingDateSource<T> {
+abstract class UizakuraPagingDateSource<T> {
   final List<T> _all = <T>[];
   ListPaging<T>? previousPaging;
   final ValueNotifier<ListPaging<T>?> _dataNotifier = ValueNotifier(null);
@@ -13,7 +13,7 @@ abstract class PagingDateSource<T> {
   // no effect with [all] [previousPaging]
   var _dryRun = false;
 
-  PagingDateSource();
+  UizakuraPagingDateSource();
 
   Function() listen(Function(ListPaging<T>) f) {
     l() {

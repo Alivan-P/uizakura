@@ -4,7 +4,8 @@ import 'package:flutter/widgets.dart';
 /// @author luwenjie on 2024/1/20 00:42:00
 
 extension ScrolllerExtension on ScrollController {
-  Future<void> scrollToBottom([Duration duration = const Duration(milliseconds: 400)]) async {
+  Future<void> scrollToBottom(
+      [Duration duration = const Duration(milliseconds: 400)]) async {
     await animateTo(position.maxScrollExtent,
         duration: duration, curve: Curves.fastOutSlowIn);
   }
@@ -15,7 +16,8 @@ extension ScrolllerExtension on ScrollController {
         duration: duration, curve: Curves.fastOutSlowIn);
   }
 
-  Future<void> scrollToTop({Duration duration = const Duration(milliseconds: 200)}) async {
+  Future<void> scrollToTop(
+      {Duration duration = const Duration(milliseconds: 200)}) async {
     try {
       await animateTo(0, duration: duration, curve: Curves.fastOutSlowIn);
     } catch (e) {

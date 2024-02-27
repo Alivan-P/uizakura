@@ -5,7 +5,7 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 /// @author luwenjie on 2023/9/14 22:47:54
 
-class LuAppEnv {
+class UizakuraAppEnv {
   static String _version = "";
   static String _buildCode = "";
   static int utcDeltaSeconds = 0;

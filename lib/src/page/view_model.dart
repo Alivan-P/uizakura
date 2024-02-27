@@ -3,14 +3,14 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// @author luwenjie on 2023/4/22 18:26:16
 
-abstract class ViewModel<T> extends StateNotifier<T> {
+abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   final _disposeSet = <Function?>[];
   final _disposeFutures = <Future<dynamic>>[];
   var _disposed = false;
 
   get disposed => _disposed;
 
-  ViewModel(super.state) {
+  UizakuraViewModel(super.state) {
     _initialize();
   }
 

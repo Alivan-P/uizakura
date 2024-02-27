@@ -48,4 +48,13 @@ class Toast {
         toastDuration: duration ?? const Duration(milliseconds: 2500),
         fadeDuration: const Duration(milliseconds: 240));
   }
+
+  static showCustom(
+      {required Widget child,
+      Duration toastDuration = const Duration(milliseconds: 5000),
+      ToastGravity gravity = ToastGravity.SNACKBAR}) {
+    dismiss();
+    FToast().showToast(
+        gravity: gravity, toastDuration: toastDuration, child: child);
+  }
 }
