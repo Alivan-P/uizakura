@@ -11,6 +11,8 @@ export "src/lifecycle/widget.dart";
 export "src/page/base_page.dart";
 export 'src/page/paging.dart';
 export "src/page/view_model.dart";
+export "src/page/auto_dispose_mixin.dart";
+export "src/page/overlay_page_mixin.dart";
 export "src/util/color.dart";
 export "src/util/date.dart";
 export "src/util/env.dart";
