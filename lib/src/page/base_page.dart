@@ -1,6 +1,11 @@
+import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uizakura/src/widget/after_layout.dart';
+
+import 'auto_dispose_mixin.dart';
+import 'overlay_page_mixin.dart';
 
 /// @author luwenjie on 2023/4/28 11:22:13
 ///
@@ -12,9 +17,17 @@ abstract class UizakuraPage extends ConsumerStatefulWidget {
 }
 
 abstract class UizakuraPageState<T extends UizakuraPage>
-    extends ConsumerState<T> with WidgetsBindingObserver, AfterLayoutMixin<T> {
-  final _disposeSet = <Function?>[];
-  final _disposeFutures = <Future<dynamic>>[];
+    extends ConsumerState<T>
+    with
+        WidgetsBindingObserver,
+        AfterLayoutMixin<T>,
+        OverLayerMixin<T>,
+        AutoDisposeMixin<T> {
+  bool _isAfterFirstLayout = false;
+
+  @override
+  bool get isAfterFirstLayout => _isAfterFirstLayout;
+
   @override
   void initState() {
     super.initState();
@@ -29,19 +42,16 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     }
   }
 
+  @mustCallSuper
+  @override
+  FutureOr<void> afterFirstLayout(BuildContext context) {
+    _isAfterFirstLayout = true;
+    return super.afterFirstLayout(context);
+  }
+
   @override
   void didUpdateWidget(covariant T oldWidget) {
     super.didUpdateWidget(oldWidget);
-  }
-
-  @protected
-  void addDispose(Function block) async {
-    _disposeSet.add(block);
-  }
-
-  @protected
-  void addDisposeFuture(Future<dynamic> future) async {
-    _disposeFutures.add(future);
   }
 
   @override
@@ -52,18 +62,7 @@ abstract class UizakuraPageState<T extends UizakuraPage>
   @override
   @mustCallSuper
   void dispose() {
-    super.dispose();
     WidgetsBinding.instance.removeObserver(this);
-    for (var element in _disposeSet) {
-      element?.call();
-    }
-    // ignore disposed futures result
-    try {
-      for (Future<dynamic> element in _disposeFutures) {
-        element.ignore();
-      }
-    } catch (e) {
-      //
-    }
+    super.dispose();
   }
 }
