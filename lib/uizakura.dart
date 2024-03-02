@@ -37,7 +37,7 @@ export 'src/widget/toast.dart';
 export 'src/widget/widget_extension.dart';
 
 Future<void> initialize() async {
-  await UizakuraAppEnv.init();
+  await UizakuraAppEnv.initialize();
   await _setHighRate();
 }
 
