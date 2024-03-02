@@ -14,7 +14,7 @@ class UizakuraAppEnv {
 
   static String get buildCode => _buildCode;
 
-  static Future<void> init() async {
+  static Future<void> initialize() async {
     await PackageInfo.fromPlatform().then((value) {
       _version = value.version;
       _buildCode = value.buildNumber;

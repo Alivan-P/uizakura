@@ -38,4 +38,14 @@ mixin OverLayerMixin<T extends StatefulWidget> on State<T> {
       dismissOnTap: dismissOnTap,
     );
   }
+
+  Future<void> dismissLoading() async {
+    _overlayManager.dismissLoading();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _overlayManager.dismiss();
+  }
 }
