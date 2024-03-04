@@ -12,43 +12,66 @@ part of 'async_state.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
 mixin _$Async<T> {
   String get message => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
   T? get data => throw _privateConstructorUsedError;
+  List<T>? get listData => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) =>
       throw _privateConstructorUsedError;
@@ -94,7 +117,7 @@ abstract class $AsyncCopyWith<T, $Res> {
   factory $AsyncCopyWith(Async<T> value, $Res Function(Async<T>) then) =
       _$AsyncCopyWithImpl<T, $Res, Async<T>>;
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, T? data, List<T>? listData});
 }
 
 /// @nodoc
@@ -113,6 +136,7 @@ class _$AsyncCopyWithImpl<T, $Res, $Val extends Async<T>>
     Object? message = null,
     Object? code = null,
     Object? data = freezed,
+    Object? listData = freezed,
   }) {
     return _then(_value.copyWith(
       message: null == message
@@ -127,27 +151,31 @@ class _$AsyncCopyWithImpl<T, $Res, $Val extends Async<T>>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
+      listData: freezed == listData
+          ? _value.listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$InitializingCopyWith<T, $Res>
+abstract class _$$InitializingImplCopyWith<T, $Res>
     implements $AsyncCopyWith<T, $Res> {
-  factory _$$InitializingCopyWith(
-          _$Initializing<T> value, $Res Function(_$Initializing<T>) then) =
-      __$$InitializingCopyWithImpl<T, $Res>;
+  factory _$$InitializingImplCopyWith(_$InitializingImpl<T> value,
+          $Res Function(_$InitializingImpl<T>) then) =
+      __$$InitializingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, T? data, List<T>? listData});
 }
 
 /// @nodoc
-class __$$InitializingCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Initializing<T>>
-    implements _$$InitializingCopyWith<T, $Res> {
-  __$$InitializingCopyWithImpl(
-      _$Initializing<T> _value, $Res Function(_$Initializing<T>) _then)
+class __$$InitializingImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$InitializingImpl<T>>
+    implements _$$InitializingImplCopyWith<T, $Res> {
+  __$$InitializingImplCopyWithImpl(
+      _$InitializingImpl<T> _value, $Res Function(_$InitializingImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -156,8 +184,9 @@ class __$$InitializingCopyWithImpl<T, $Res>
     Object? message = null,
     Object? code = null,
     Object? data = freezed,
+    Object? listData = freezed,
   }) {
-    return _then(_$Initializing<T>(
+    return _then(_$InitializingImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -170,14 +199,20 @@ class __$$InitializingCopyWithImpl<T, $Res>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Initializing<T> implements Initializing<T> {
-  _$Initializing({this.message = "", this.code = "", this.data});
+class _$InitializingImpl<T> implements Initializing<T> {
+  _$InitializingImpl(
+      {this.message = "", this.code = "", this.data, final List<T>? listData})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -187,73 +222,110 @@ class _$Initializing<T> implements Initializing<T> {
   final String code;
   @override
   final T? data;
-
+  final List<T>? _listData;
   @override
-  String toString() {
-    return 'Async<$T>.initializing(message: $message, code: $code, data: $data)';
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  bool operator ==(dynamic other) {
+  String toString() {
+    return 'Async<$T>.initializing(message: $message, code: $code, data: $data, listData: $listData)';
+  }
+
+  @override
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Initializing<T> &&
+            other is _$InitializingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other._listData, _listData));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(_listData));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$InitializingCopyWith<T, _$Initializing<T>> get copyWith =>
-      __$$InitializingCopyWithImpl<T, _$Initializing<T>>(this, _$identity);
+  _$$InitializingImplCopyWith<T, _$InitializingImpl<T>> get copyWith =>
+      __$$InitializingImplCopyWithImpl<T, _$InitializingImpl<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return initializing(message, code, data);
+    return initializing(message, code, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return initializing?.call(message, code, data);
+    return initializing?.call(message, code, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (initializing != null) {
-      return initializing(message, code, data);
+      return initializing(message, code, data, listData);
     }
     return orElse();
   }
@@ -306,7 +378,8 @@ abstract class Initializing<T> implements Async<T>, _AsyncData<T> {
   factory Initializing(
       {final String message,
       final String code,
-      final T? data}) = _$Initializing<T>;
+      final T? data,
+      final List<T>? listData}) = _$InitializingImpl<T>;
 
   @override
   String get message;
@@ -315,28 +388,30 @@ abstract class Initializing<T> implements Async<T>, _AsyncData<T> {
   @override
   T? get data;
   @override
+  List<T>? get listData;
+  @override
   @JsonKey(ignore: true)
-  _$$InitializingCopyWith<T, _$Initializing<T>> get copyWith =>
+  _$$InitializingImplCopyWith<T, _$InitializingImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$RefreshingCopyWith<T, $Res>
+abstract class _$$RefreshingImplCopyWith<T, $Res>
     implements $AsyncCopyWith<T, $Res> {
-  factory _$$RefreshingCopyWith(
-          _$Refreshing<T> value, $Res Function(_$Refreshing<T>) then) =
-      __$$RefreshingCopyWithImpl<T, $Res>;
+  factory _$$RefreshingImplCopyWith(
+          _$RefreshingImpl<T> value, $Res Function(_$RefreshingImpl<T>) then) =
+      __$$RefreshingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, List<T>? listData, T? data});
 }
 
 /// @nodoc
-class __$$RefreshingCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Refreshing<T>>
-    implements _$$RefreshingCopyWith<T, $Res> {
-  __$$RefreshingCopyWithImpl(
-      _$Refreshing<T> _value, $Res Function(_$Refreshing<T>) _then)
+class __$$RefreshingImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$RefreshingImpl<T>>
+    implements _$$RefreshingImplCopyWith<T, $Res> {
+  __$$RefreshingImplCopyWithImpl(
+      _$RefreshingImpl<T> _value, $Res Function(_$RefreshingImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -344,9 +419,10 @@ class __$$RefreshingCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listData = freezed,
     Object? data = freezed,
   }) {
-    return _then(_$Refreshing<T>(
+    return _then(_$RefreshingImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -355,6 +431,10 @@ class __$$RefreshingCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -365,8 +445,10 @@ class __$$RefreshingCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$Refreshing<T> implements Refreshing<T> {
-  _$Refreshing({this.message = "", this.code = "", this.data});
+class _$RefreshingImpl<T> implements Refreshing<T> {
+  _$RefreshingImpl(
+      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -374,75 +456,112 @@ class _$Refreshing<T> implements Refreshing<T> {
   @override
   @JsonKey()
   final String code;
+  final List<T>? _listData;
+  @override
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final T? data;
 
   @override
   String toString() {
-    return 'Async<$T>.refreshing(message: $message, code: $code, data: $data)';
+    return 'Async<$T>.refreshing(message: $message, code: $code, listData: $listData, data: $data)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Refreshing<T> &&
+            other is _$RefreshingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(_listData),
+      const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RefreshingCopyWith<T, _$Refreshing<T>> get copyWith =>
-      __$$RefreshingCopyWithImpl<T, _$Refreshing<T>>(this, _$identity);
+  _$$RefreshingImplCopyWith<T, _$RefreshingImpl<T>> get copyWith =>
+      __$$RefreshingImplCopyWithImpl<T, _$RefreshingImpl<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return refreshing(message, code, data);
+    return refreshing(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return refreshing?.call(message, code, data);
+    return refreshing?.call(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (refreshing != null) {
-      return refreshing(message, code, data);
+      return refreshing(message, code, listData, data);
     }
     return orElse();
   }
@@ -492,37 +611,43 @@ class _$Refreshing<T> implements Refreshing<T> {
 }
 
 abstract class Refreshing<T> implements Async<T>, _AsyncData<T> {
-  factory Refreshing({final String message, final String code, final T? data}) =
-      _$Refreshing<T>;
+  factory Refreshing(
+      {final String message,
+      final String code,
+      final List<T>? listData,
+      final T? data}) = _$RefreshingImpl<T>;
 
   @override
   String get message;
   @override
   String get code;
   @override
+  List<T>? get listData;
+  @override
   T? get data;
   @override
   @JsonKey(ignore: true)
-  _$$RefreshingCopyWith<T, _$Refreshing<T>> get copyWith =>
+  _$$RefreshingImplCopyWith<T, _$RefreshingImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$LoadingCopyWith<T, $Res> implements $AsyncCopyWith<T, $Res> {
-  factory _$$LoadingCopyWith(
-          _$Loading<T> value, $Res Function(_$Loading<T>) then) =
-      __$$LoadingCopyWithImpl<T, $Res>;
+abstract class _$$LoadingImplCopyWith<T, $Res>
+    implements $AsyncCopyWith<T, $Res> {
+  factory _$$LoadingImplCopyWith(
+          _$LoadingImpl<T> value, $Res Function(_$LoadingImpl<T>) then) =
+      __$$LoadingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, List<T>? listData, T? data});
 }
 
 /// @nodoc
-class __$$LoadingCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Loading<T>>
-    implements _$$LoadingCopyWith<T, $Res> {
-  __$$LoadingCopyWithImpl(
-      _$Loading<T> _value, $Res Function(_$Loading<T>) _then)
+class __$$LoadingImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$LoadingImpl<T>>
+    implements _$$LoadingImplCopyWith<T, $Res> {
+  __$$LoadingImplCopyWithImpl(
+      _$LoadingImpl<T> _value, $Res Function(_$LoadingImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -530,9 +655,10 @@ class __$$LoadingCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listData = freezed,
     Object? data = freezed,
   }) {
-    return _then(_$Loading<T>(
+    return _then(_$LoadingImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -541,6 +667,10 @@ class __$$LoadingCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -551,8 +681,10 @@ class __$$LoadingCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$Loading<T> implements Loading<T> {
-  _$Loading({this.message = "", this.code = "", this.data});
+class _$LoadingImpl<T> implements Loading<T> {
+  _$LoadingImpl(
+      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -560,75 +692,112 @@ class _$Loading<T> implements Loading<T> {
   @override
   @JsonKey()
   final String code;
+  final List<T>? _listData;
+  @override
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final T? data;
 
   @override
   String toString() {
-    return 'Async<$T>.loading(message: $message, code: $code, data: $data)';
+    return 'Async<$T>.loading(message: $message, code: $code, listData: $listData, data: $data)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Loading<T> &&
+            other is _$LoadingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(_listData),
+      const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$LoadingCopyWith<T, _$Loading<T>> get copyWith =>
-      __$$LoadingCopyWithImpl<T, _$Loading<T>>(this, _$identity);
+  _$$LoadingImplCopyWith<T, _$LoadingImpl<T>> get copyWith =>
+      __$$LoadingImplCopyWithImpl<T, _$LoadingImpl<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return loading(message, code, data);
+    return loading(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return loading?.call(message, code, data);
+    return loading?.call(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(message, code, data);
+      return loading(message, code, listData, data);
     }
     return orElse();
   }
@@ -678,37 +847,43 @@ class _$Loading<T> implements Loading<T> {
 }
 
 abstract class Loading<T> implements Async<T>, _AsyncData<T> {
-  factory Loading({final String message, final String code, final T? data}) =
-      _$Loading<T>;
+  factory Loading(
+      {final String message,
+      final String code,
+      final List<T>? listData,
+      final T? data}) = _$LoadingImpl<T>;
 
   @override
   String get message;
   @override
   String get code;
   @override
+  List<T>? get listData;
+  @override
   T? get data;
   @override
   @JsonKey(ignore: true)
-  _$$LoadingCopyWith<T, _$Loading<T>> get copyWith =>
+  _$$LoadingImplCopyWith<T, _$LoadingImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$SuccessCopyWith<T, $Res> implements $AsyncCopyWith<T, $Res> {
-  factory _$$SuccessCopyWith(
-          _$Success<T> value, $Res Function(_$Success<T>) then) =
-      __$$SuccessCopyWithImpl<T, $Res>;
+abstract class _$$SuccessImplCopyWith<T, $Res>
+    implements $AsyncCopyWith<T, $Res> {
+  factory _$$SuccessImplCopyWith(
+          _$SuccessImpl<T> value, $Res Function(_$SuccessImpl<T>) then) =
+      __$$SuccessImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, List<T>? listData, T? data});
 }
 
 /// @nodoc
-class __$$SuccessCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Success<T>>
-    implements _$$SuccessCopyWith<T, $Res> {
-  __$$SuccessCopyWithImpl(
-      _$Success<T> _value, $Res Function(_$Success<T>) _then)
+class __$$SuccessImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$SuccessImpl<T>>
+    implements _$$SuccessImplCopyWith<T, $Res> {
+  __$$SuccessImplCopyWithImpl(
+      _$SuccessImpl<T> _value, $Res Function(_$SuccessImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -716,9 +891,10 @@ class __$$SuccessCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listData = freezed,
     Object? data = freezed,
   }) {
-    return _then(_$Success<T>(
+    return _then(_$SuccessImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -727,6 +903,10 @@ class __$$SuccessCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -737,8 +917,10 @@ class __$$SuccessCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$Success<T> implements Success<T> {
-  _$Success({this.message = "", this.code = "", this.data});
+class _$SuccessImpl<T> implements Success<T> {
+  _$SuccessImpl(
+      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -746,75 +928,112 @@ class _$Success<T> implements Success<T> {
   @override
   @JsonKey()
   final String code;
+  final List<T>? _listData;
+  @override
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final T? data;
 
   @override
   String toString() {
-    return 'Async<$T>.success(message: $message, code: $code, data: $data)';
+    return 'Async<$T>.success(message: $message, code: $code, listData: $listData, data: $data)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Success<T> &&
+            other is _$SuccessImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(_listData),
+      const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$SuccessCopyWith<T, _$Success<T>> get copyWith =>
-      __$$SuccessCopyWithImpl<T, _$Success<T>>(this, _$identity);
+  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
+      __$$SuccessImplCopyWithImpl<T, _$SuccessImpl<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return success(message, code, data);
+    return success(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return success?.call(message, code, data);
+    return success?.call(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(message, code, data);
+      return success(message, code, listData, data);
     }
     return orElse();
   }
@@ -864,35 +1083,43 @@ class _$Success<T> implements Success<T> {
 }
 
 abstract class Success<T> implements Async<T>, _AsyncData<T> {
-  factory Success({final String message, final String code, final T? data}) =
-      _$Success<T>;
+  factory Success(
+      {final String message,
+      final String code,
+      final List<T>? listData,
+      final T? data}) = _$SuccessImpl<T>;
 
   @override
   String get message;
   @override
   String get code;
   @override
+  List<T>? get listData;
+  @override
   T? get data;
   @override
   @JsonKey(ignore: true)
-  _$$SuccessCopyWith<T, _$Success<T>> get copyWith =>
+  _$$SuccessImplCopyWith<T, _$SuccessImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$ErrorCopyWith<T, $Res> implements $AsyncCopyWith<T, $Res> {
-  factory _$$ErrorCopyWith(_$Error<T> value, $Res Function(_$Error<T>) then) =
-      __$$ErrorCopyWithImpl<T, $Res>;
+abstract class _$$ErrorImplCopyWith<T, $Res>
+    implements $AsyncCopyWith<T, $Res> {
+  factory _$$ErrorImplCopyWith(
+          _$ErrorImpl<T> value, $Res Function(_$ErrorImpl<T>) then) =
+      __$$ErrorImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, T? data, List<T>? listData});
 }
 
 /// @nodoc
-class __$$ErrorCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Error<T>>
-    implements _$$ErrorCopyWith<T, $Res> {
-  __$$ErrorCopyWithImpl(_$Error<T> _value, $Res Function(_$Error<T>) _then)
+class __$$ErrorImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$ErrorImpl<T>>
+    implements _$$ErrorImplCopyWith<T, $Res> {
+  __$$ErrorImplCopyWithImpl(
+      _$ErrorImpl<T> _value, $Res Function(_$ErrorImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -901,8 +1128,9 @@ class __$$ErrorCopyWithImpl<T, $Res>
     Object? message = null,
     Object? code = null,
     Object? data = freezed,
+    Object? listData = freezed,
   }) {
-    return _then(_$Error<T>(
+    return _then(_$ErrorImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -915,14 +1143,20 @@ class __$$ErrorCopyWithImpl<T, $Res>
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
               as T?,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
     ));
   }
 }
 
 /// @nodoc
 
-class _$Error<T> implements Error<T> {
-  _$Error({this.message = "", this.code = "", this.data});
+class _$ErrorImpl<T> implements Error<T> {
+  _$ErrorImpl(
+      {this.message = "", this.code = "", this.data, final List<T>? listData})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -932,73 +1166,109 @@ class _$Error<T> implements Error<T> {
   final String code;
   @override
   final T? data;
-
+  final List<T>? _listData;
   @override
-  String toString() {
-    return 'Async<$T>.error(message: $message, code: $code, data: $data)';
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
   }
 
   @override
-  bool operator ==(dynamic other) {
+  String toString() {
+    return 'Async<$T>.error(message: $message, code: $code, data: $data, listData: $listData)';
+  }
+
+  @override
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Error<T> &&
+            other is _$ErrorImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
-            const DeepCollectionEquality().equals(other.data, data));
+            const DeepCollectionEquality().equals(other.data, data) &&
+            const DeepCollectionEquality().equals(other._listData, _listData));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(data),
+      const DeepCollectionEquality().hash(_listData));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$ErrorCopyWith<T, _$Error<T>> get copyWith =>
-      __$$ErrorCopyWithImpl<T, _$Error<T>>(this, _$identity);
+  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
+      __$$ErrorImplCopyWithImpl<T, _$ErrorImpl<T>>(this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return error(message, code, data);
+    return error(message, code, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return error?.call(message, code, data);
+    return error?.call(message, code, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message, code, data);
+      return error(message, code, data, listData);
     }
     return orElse();
   }
@@ -1048,8 +1318,11 @@ class _$Error<T> implements Error<T> {
 }
 
 abstract class Error<T> implements Async<T>, _AsyncData<T> {
-  factory Error({final String message, final String code, final T? data}) =
-      _$Error<T>;
+  factory Error(
+      {final String message,
+      final String code,
+      final T? data,
+      final List<T>? listData}) = _$ErrorImpl<T>;
 
   @override
   String get message;
@@ -1058,28 +1331,30 @@ abstract class Error<T> implements Async<T>, _AsyncData<T> {
   @override
   T? get data;
   @override
+  List<T>? get listData;
+  @override
   @JsonKey(ignore: true)
-  _$$ErrorCopyWith<T, _$Error<T>> get copyWith =>
+  _$$ErrorImplCopyWith<T, _$ErrorImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class _$$UninitializedCopyWith<T, $Res>
+abstract class _$$UninitializedImplCopyWith<T, $Res>
     implements $AsyncCopyWith<T, $Res> {
-  factory _$$UninitializedCopyWith(
-          _$Uninitialized<T> value, $Res Function(_$Uninitialized<T>) then) =
-      __$$UninitializedCopyWithImpl<T, $Res>;
+  factory _$$UninitializedImplCopyWith(_$UninitializedImpl<T> value,
+          $Res Function(_$UninitializedImpl<T>) then) =
+      __$$UninitializedImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data});
+  $Res call({String message, String code, List<T>? listData, T? data});
 }
 
 /// @nodoc
-class __$$UninitializedCopyWithImpl<T, $Res>
-    extends _$AsyncCopyWithImpl<T, $Res, _$Uninitialized<T>>
-    implements _$$UninitializedCopyWith<T, $Res> {
-  __$$UninitializedCopyWithImpl(
-      _$Uninitialized<T> _value, $Res Function(_$Uninitialized<T>) _then)
+class __$$UninitializedImplCopyWithImpl<T, $Res>
+    extends _$AsyncCopyWithImpl<T, $Res, _$UninitializedImpl<T>>
+    implements _$$UninitializedImplCopyWith<T, $Res> {
+  __$$UninitializedImplCopyWithImpl(_$UninitializedImpl<T> _value,
+      $Res Function(_$UninitializedImpl<T>) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
@@ -1087,9 +1362,10 @@ class __$$UninitializedCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listData = freezed,
     Object? data = freezed,
   }) {
-    return _then(_$Uninitialized<T>(
+    return _then(_$UninitializedImpl<T>(
       message: null == message
           ? _value.message
           : message // ignore: cast_nullable_to_non_nullable
@@ -1098,6 +1374,10 @@ class __$$UninitializedCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listData: freezed == listData
+          ? _value._listData
+          : listData // ignore: cast_nullable_to_non_nullable
+              as List<T>?,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -1108,8 +1388,10 @@ class __$$UninitializedCopyWithImpl<T, $Res>
 
 /// @nodoc
 
-class _$Uninitialized<T> implements Uninitialized<T> {
-  _$Uninitialized({this.message = "", this.code = "", this.data});
+class _$UninitializedImpl<T> implements Uninitialized<T> {
+  _$UninitializedImpl(
+      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      : _listData = listData;
 
   @override
   @JsonKey()
@@ -1117,75 +1399,113 @@ class _$Uninitialized<T> implements Uninitialized<T> {
   @override
   @JsonKey()
   final String code;
+  final List<T>? _listData;
+  @override
+  List<T>? get listData {
+    final value = _listData;
+    if (value == null) return null;
+    if (_listData is EqualUnmodifiableListView) return _listData;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(value);
+  }
+
   @override
   final T? data;
 
   @override
   String toString() {
-    return 'Async<$T>.uninitialized(message: $message, code: $code, data: $data)';
+    return 'Async<$T>.uninitialized(message: $message, code: $code, listData: $listData, data: $data)';
   }
 
   @override
-  bool operator ==(dynamic other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$Uninitialized<T> &&
+            other is _$UninitializedImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
 
   @override
   int get hashCode => Object.hash(
-      runtimeType, message, code, const DeepCollectionEquality().hash(data));
+      runtimeType,
+      message,
+      code,
+      const DeepCollectionEquality().hash(_listData),
+      const DeepCollectionEquality().hash(data));
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$UninitializedCopyWith<T, _$Uninitialized<T>> get copyWith =>
-      __$$UninitializedCopyWithImpl<T, _$Uninitialized<T>>(this, _$identity);
+  _$$UninitializedImplCopyWith<T, _$UninitializedImpl<T>> get copyWith =>
+      __$$UninitializedImplCopyWithImpl<T, _$UninitializedImpl<T>>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
         initializing,
-    required TResult Function(String message, String code, T? data) refreshing,
-    required TResult Function(String message, String code, T? data) loading,
-    required TResult Function(String message, String code, T? data) success,
-    required TResult Function(String message, String code, T? data) error,
-    required TResult Function(String message, String code, T? data)
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        refreshing,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        loading,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
+        success,
+    required TResult Function(
+            String message, String code, T? data, List<T>? listData)
+        error,
+    required TResult Function(
+            String message, String code, List<T>? listData, T? data)
         uninitialized,
   }) {
-    return uninitialized(message, code, data);
+    return uninitialized(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data)? initializing,
-    TResult? Function(String message, String code, T? data)? refreshing,
-    TResult? Function(String message, String code, T? data)? loading,
-    TResult? Function(String message, String code, T? data)? success,
-    TResult? Function(String message, String code, T? data)? error,
-    TResult? Function(String message, String code, T? data)? uninitialized,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult? Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult? Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
   }) {
-    return uninitialized?.call(message, code, data);
+    return uninitialized?.call(message, code, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data)? initializing,
-    TResult Function(String message, String code, T? data)? refreshing,
-    TResult Function(String message, String code, T? data)? loading,
-    TResult Function(String message, String code, T? data)? success,
-    TResult Function(String message, String code, T? data)? error,
-    TResult Function(String message, String code, T? data)? uninitialized,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        initializing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        refreshing,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        loading,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        success,
+    TResult Function(String message, String code, T? data, List<T>? listData)?
+        error,
+    TResult Function(String message, String code, List<T>? listData, T? data)?
+        uninitialized,
     required TResult orElse(),
   }) {
     if (uninitialized != null) {
-      return uninitialized(message, code, data);
+      return uninitialized(message, code, listData, data);
     }
     return orElse();
   }
@@ -1238,16 +1558,19 @@ abstract class Uninitialized<T> implements Async<T>, _AsyncData<T> {
   factory Uninitialized(
       {final String message,
       final String code,
-      final T? data}) = _$Uninitialized<T>;
+      final List<T>? listData,
+      final T? data}) = _$UninitializedImpl<T>;
 
   @override
   String get message;
   @override
   String get code;
   @override
+  List<T>? get listData;
+  @override
   T? get data;
   @override
   @JsonKey(ignore: true)
-  _$$UninitializedCopyWith<T, _$Uninitialized<T>> get copyWith =>
+  _$$UninitializedImplCopyWith<T, _$UninitializedImpl<T>> get copyWith =>
       throw _privateConstructorUsedError;
 }
