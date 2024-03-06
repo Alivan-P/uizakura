@@ -78,6 +78,7 @@ class ListPaging<T> {
   bool isSuccess;
   final int total;
   final String? cursor;
+  final int? intCursor;
   final bool hasMore;
   final String errorMessage;
 
@@ -87,6 +88,7 @@ class ListPaging<T> {
     this.total = 0,
     this.hasMore = true,
     this.cursor,
+    this.intCursor,
     this.errorMessage = "",
   });
 
@@ -98,6 +100,7 @@ class ListPaging<T> {
           items == other.items &&
           isSuccess == other.isSuccess &&
           total == other.total &&
+          intCursor == other.intCursor &&
           hasMore == other.hasMore &&
           cursor == other.cursor &&
           errorMessage == other.errorMessage);
@@ -108,12 +111,13 @@ class ListPaging<T> {
       isSuccess.hashCode ^
       total.hashCode ^
       hasMore.hashCode ^
+      intCursor.hashCode ^
       cursor.hashCode ^
       errorMessage.hashCode;
 
   @override
   String toString() {
-    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor,}';
+    return 'ListPaging{ items: $items, total: $total, success: $isSuccess, hasMore: $hasMore, errorMessage: $errorMessage, next: $cursor, intCursor: $intCursor}';
   }
 
   ListPaging<T> copyWith({
