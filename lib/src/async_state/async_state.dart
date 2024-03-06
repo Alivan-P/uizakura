@@ -9,7 +9,10 @@ abstract class _AsyncData<T> {
 
   T? get data;
 
+  // for list
   List<T>? get listData;
+
+  int get listTotal;
 }
 
 @freezed
@@ -18,6 +21,7 @@ class Async<T> with _$Async<T> {
   factory Async.initializing({
     @Default("") String message,
     @Default("") String code,
+    @Default(0) int listTotal,
     T? data,
     List<T>? listData,
   }) = Initializing;
@@ -26,6 +30,7 @@ class Async<T> with _$Async<T> {
   factory Async.refreshing(
       {@Default("") String message,
       @Default("") String code,
+      @Default(0) int listTotal,
       List<T>? listData,
       T? data}) = Refreshing;
 
@@ -33,13 +38,15 @@ class Async<T> with _$Async<T> {
   factory Async.loading(
       {@Default("") String message,
       @Default("") String code,
-        List<T>? listData,
+      @Default(0) int listTotal,
+      List<T>? listData,
       T? data}) = Loading;
 
   @Implements.fromString('_AsyncData<T>')
   factory Async.success(
       {@Default("") String message,
       @Default("") String code,
+      @Default(0) int listTotal,
       List<T>? listData,
       T? data}) = Success;
 
@@ -47,6 +54,7 @@ class Async<T> with _$Async<T> {
   factory Async.error({
     @Default("") String message,
     @Default("") String code,
+    @Default(0) int listTotal,
     T? data,
     List<T>? listData,
   }) = Error;
@@ -55,6 +63,7 @@ class Async<T> with _$Async<T> {
   factory Async.uninitialized({
     @Default("") String message,
     @Default("") String code,
+    @Default(0) int listTotal,
     List<T>? listData,
     T? data,
   }) = Uninitialized;

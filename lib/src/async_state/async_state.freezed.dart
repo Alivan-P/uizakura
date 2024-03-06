@@ -18,59 +18,73 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$Async<T> {
   String get message => throw _privateConstructorUsedError;
   String get code => throw _privateConstructorUsedError;
+
+  int get listTotal => throw _privateConstructorUsedError;
   T? get data => throw _privateConstructorUsedError;
   List<T>? get listData => throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) =>
@@ -117,7 +131,8 @@ abstract class $AsyncCopyWith<T, $Res> {
   factory $AsyncCopyWith(Async<T> value, $Res Function(Async<T>) then) =
       _$AsyncCopyWithImpl<T, $Res, Async<T>>;
   @useResult
-  $Res call({String message, String code, T? data, List<T>? listData});
+  $Res call(
+      {String message, String code, int listTotal, T? data, List<T>? listData});
 }
 
 /// @nodoc
@@ -135,6 +150,7 @@ class _$AsyncCopyWithImpl<T, $Res, $Val extends Async<T>>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? data = freezed,
     Object? listData = freezed,
   }) {
@@ -147,6 +163,10 @@ class _$AsyncCopyWithImpl<T, $Res, $Val extends Async<T>>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -167,7 +187,8 @@ abstract class _$$InitializingImplCopyWith<T, $Res>
       __$$InitializingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data, List<T>? listData});
+  $Res call(
+      {String message, String code, int listTotal, T? data, List<T>? listData});
 }
 
 /// @nodoc
@@ -183,6 +204,7 @@ class __$$InitializingImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? data = freezed,
     Object? listData = freezed,
   }) {
@@ -195,6 +217,10 @@ class __$$InitializingImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -211,7 +237,11 @@ class __$$InitializingImplCopyWithImpl<T, $Res>
 
 class _$InitializingImpl<T> implements Initializing<T> {
   _$InitializingImpl(
-      {this.message = "", this.code = "", this.data, final List<T>? listData})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      this.data,
+      final List<T>? listData})
       : _listData = listData;
 
   @override
@@ -220,6 +250,9 @@ class _$InitializingImpl<T> implements Initializing<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   @override
   final T? data;
   final List<T>? _listData;
@@ -234,7 +267,7 @@ class _$InitializingImpl<T> implements Initializing<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.initializing(message: $message, code: $code, data: $data, listData: $listData)';
+    return 'Async<$T>.initializing(message: $message, code: $code, listTotal: $listTotal, data: $data, listData: $listData)';
   }
 
   @override
@@ -244,6 +277,8 @@ class _$InitializingImpl<T> implements Initializing<T> {
             other is _$InitializingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality().equals(other._listData, _listData));
   }
@@ -253,6 +288,7 @@ class _$InitializingImpl<T> implements Initializing<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(data),
       const DeepCollectionEquality().hash(_listData));
 
@@ -266,66 +302,78 @@ class _$InitializingImpl<T> implements Initializing<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return initializing(message, code, data, listData);
+    return initializing(message, code, listTotal, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return initializing?.call(message, code, data, listData);
+    return initializing?.call(message, code, listTotal, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (initializing != null) {
-      return initializing(message, code, data, listData);
+      return initializing(message, code, listTotal, data, listData);
     }
     return orElse();
   }
@@ -378,6 +426,7 @@ abstract class Initializing<T> implements Async<T>, _AsyncData<T> {
   factory Initializing(
       {final String message,
       final String code,
+      final int listTotal,
       final T? data,
       final List<T>? listData}) = _$InitializingImpl<T>;
 
@@ -385,6 +434,8 @@ abstract class Initializing<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   T? get data;
   @override
@@ -403,7 +454,8 @@ abstract class _$$RefreshingImplCopyWith<T, $Res>
       __$$RefreshingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, List<T>? listData, T? data});
+  $Res call(
+      {String message, String code, int listTotal, List<T>? listData, T? data});
 }
 
 /// @nodoc
@@ -419,6 +471,7 @@ class __$$RefreshingImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? listData = freezed,
     Object? data = freezed,
   }) {
@@ -431,6 +484,10 @@ class __$$RefreshingImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       listData: freezed == listData
           ? _value._listData
           : listData // ignore: cast_nullable_to_non_nullable
@@ -447,7 +504,11 @@ class __$$RefreshingImplCopyWithImpl<T, $Res>
 
 class _$RefreshingImpl<T> implements Refreshing<T> {
   _$RefreshingImpl(
-      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      final List<T>? listData,
+      this.data})
       : _listData = listData;
 
   @override
@@ -456,6 +517,9 @@ class _$RefreshingImpl<T> implements Refreshing<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   final List<T>? _listData;
   @override
   List<T>? get listData {
@@ -471,7 +535,7 @@ class _$RefreshingImpl<T> implements Refreshing<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.refreshing(message: $message, code: $code, listData: $listData, data: $data)';
+    return 'Async<$T>.refreshing(message: $message, code: $code, listTotal: $listTotal, listData: $listData, data: $data)';
   }
 
   @override
@@ -481,6 +545,8 @@ class _$RefreshingImpl<T> implements Refreshing<T> {
             other is _$RefreshingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -490,6 +556,7 @@ class _$RefreshingImpl<T> implements Refreshing<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(_listData),
       const DeepCollectionEquality().hash(data));
 
@@ -502,66 +569,78 @@ class _$RefreshingImpl<T> implements Refreshing<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return refreshing(message, code, listData, data);
+    return refreshing(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return refreshing?.call(message, code, listData, data);
+    return refreshing?.call(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (refreshing != null) {
-      return refreshing(message, code, listData, data);
+      return refreshing(message, code, listTotal, listData, data);
     }
     return orElse();
   }
@@ -614,6 +693,7 @@ abstract class Refreshing<T> implements Async<T>, _AsyncData<T> {
   factory Refreshing(
       {final String message,
       final String code,
+      final int listTotal,
       final List<T>? listData,
       final T? data}) = _$RefreshingImpl<T>;
 
@@ -621,6 +701,8 @@ abstract class Refreshing<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   List<T>? get listData;
   @override
@@ -639,7 +721,8 @@ abstract class _$$LoadingImplCopyWith<T, $Res>
       __$$LoadingImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, List<T>? listData, T? data});
+  $Res call(
+      {String message, String code, int listTotal, List<T>? listData, T? data});
 }
 
 /// @nodoc
@@ -655,6 +738,7 @@ class __$$LoadingImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? listData = freezed,
     Object? data = freezed,
   }) {
@@ -667,6 +751,10 @@ class __$$LoadingImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       listData: freezed == listData
           ? _value._listData
           : listData // ignore: cast_nullable_to_non_nullable
@@ -683,7 +771,11 @@ class __$$LoadingImplCopyWithImpl<T, $Res>
 
 class _$LoadingImpl<T> implements Loading<T> {
   _$LoadingImpl(
-      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      final List<T>? listData,
+      this.data})
       : _listData = listData;
 
   @override
@@ -692,6 +784,9 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   final List<T>? _listData;
   @override
   List<T>? get listData {
@@ -707,7 +802,7 @@ class _$LoadingImpl<T> implements Loading<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.loading(message: $message, code: $code, listData: $listData, data: $data)';
+    return 'Async<$T>.loading(message: $message, code: $code, listTotal: $listTotal, listData: $listData, data: $data)';
   }
 
   @override
@@ -717,6 +812,8 @@ class _$LoadingImpl<T> implements Loading<T> {
             other is _$LoadingImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -726,6 +823,7 @@ class _$LoadingImpl<T> implements Loading<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(_listData),
       const DeepCollectionEquality().hash(data));
 
@@ -738,66 +836,78 @@ class _$LoadingImpl<T> implements Loading<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return loading(message, code, listData, data);
+    return loading(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return loading?.call(message, code, listData, data);
+    return loading?.call(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (loading != null) {
-      return loading(message, code, listData, data);
+      return loading(message, code, listTotal, listData, data);
     }
     return orElse();
   }
@@ -850,6 +960,7 @@ abstract class Loading<T> implements Async<T>, _AsyncData<T> {
   factory Loading(
       {final String message,
       final String code,
+      final int listTotal,
       final List<T>? listData,
       final T? data}) = _$LoadingImpl<T>;
 
@@ -857,6 +968,8 @@ abstract class Loading<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   List<T>? get listData;
   @override
@@ -875,7 +988,8 @@ abstract class _$$SuccessImplCopyWith<T, $Res>
       __$$SuccessImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, List<T>? listData, T? data});
+  $Res call(
+      {String message, String code, int listTotal, List<T>? listData, T? data});
 }
 
 /// @nodoc
@@ -891,6 +1005,7 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? listData = freezed,
     Object? data = freezed,
   }) {
@@ -903,6 +1018,10 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       listData: freezed == listData
           ? _value._listData
           : listData // ignore: cast_nullable_to_non_nullable
@@ -919,7 +1038,11 @@ class __$$SuccessImplCopyWithImpl<T, $Res>
 
 class _$SuccessImpl<T> implements Success<T> {
   _$SuccessImpl(
-      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      final List<T>? listData,
+      this.data})
       : _listData = listData;
 
   @override
@@ -928,6 +1051,9 @@ class _$SuccessImpl<T> implements Success<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   final List<T>? _listData;
   @override
   List<T>? get listData {
@@ -943,7 +1069,7 @@ class _$SuccessImpl<T> implements Success<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.success(message: $message, code: $code, listData: $listData, data: $data)';
+    return 'Async<$T>.success(message: $message, code: $code, listTotal: $listTotal, listData: $listData, data: $data)';
   }
 
   @override
@@ -953,6 +1079,8 @@ class _$SuccessImpl<T> implements Success<T> {
             other is _$SuccessImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -962,6 +1090,7 @@ class _$SuccessImpl<T> implements Success<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(_listData),
       const DeepCollectionEquality().hash(data));
 
@@ -974,66 +1103,78 @@ class _$SuccessImpl<T> implements Success<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return success(message, code, listData, data);
+    return success(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return success?.call(message, code, listData, data);
+    return success?.call(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (success != null) {
-      return success(message, code, listData, data);
+      return success(message, code, listTotal, listData, data);
     }
     return orElse();
   }
@@ -1086,6 +1227,7 @@ abstract class Success<T> implements Async<T>, _AsyncData<T> {
   factory Success(
       {final String message,
       final String code,
+      final int listTotal,
       final List<T>? listData,
       final T? data}) = _$SuccessImpl<T>;
 
@@ -1093,6 +1235,8 @@ abstract class Success<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   List<T>? get listData;
   @override
@@ -1111,7 +1255,8 @@ abstract class _$$ErrorImplCopyWith<T, $Res>
       __$$ErrorImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, T? data, List<T>? listData});
+  $Res call(
+      {String message, String code, int listTotal, T? data, List<T>? listData});
 }
 
 /// @nodoc
@@ -1127,6 +1272,7 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? data = freezed,
     Object? listData = freezed,
   }) {
@@ -1139,6 +1285,10 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       data: freezed == data
           ? _value.data
           : data // ignore: cast_nullable_to_non_nullable
@@ -1155,7 +1305,11 @@ class __$$ErrorImplCopyWithImpl<T, $Res>
 
 class _$ErrorImpl<T> implements Error<T> {
   _$ErrorImpl(
-      {this.message = "", this.code = "", this.data, final List<T>? listData})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      this.data,
+      final List<T>? listData})
       : _listData = listData;
 
   @override
@@ -1164,6 +1318,9 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   @override
   final T? data;
   final List<T>? _listData;
@@ -1178,7 +1335,7 @@ class _$ErrorImpl<T> implements Error<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.error(message: $message, code: $code, data: $data, listData: $listData)';
+    return 'Async<$T>.error(message: $message, code: $code, listTotal: $listTotal, data: $data, listData: $listData)';
   }
 
   @override
@@ -1188,6 +1345,8 @@ class _$ErrorImpl<T> implements Error<T> {
             other is _$ErrorImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other.data, data) &&
             const DeepCollectionEquality().equals(other._listData, _listData));
   }
@@ -1197,6 +1356,7 @@ class _$ErrorImpl<T> implements Error<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(data),
       const DeepCollectionEquality().hash(_listData));
 
@@ -1209,66 +1369,78 @@ class _$ErrorImpl<T> implements Error<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return error(message, code, data, listData);
+    return error(message, code, listTotal, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return error?.call(message, code, data, listData);
+    return error?.call(message, code, listTotal, data, listData);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (error != null) {
-      return error(message, code, data, listData);
+      return error(message, code, listTotal, data, listData);
     }
     return orElse();
   }
@@ -1321,6 +1493,7 @@ abstract class Error<T> implements Async<T>, _AsyncData<T> {
   factory Error(
       {final String message,
       final String code,
+      final int listTotal,
       final T? data,
       final List<T>? listData}) = _$ErrorImpl<T>;
 
@@ -1328,6 +1501,8 @@ abstract class Error<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   T? get data;
   @override
@@ -1346,7 +1521,8 @@ abstract class _$$UninitializedImplCopyWith<T, $Res>
       __$$UninitializedImplCopyWithImpl<T, $Res>;
   @override
   @useResult
-  $Res call({String message, String code, List<T>? listData, T? data});
+  $Res call(
+      {String message, String code, int listTotal, List<T>? listData, T? data});
 }
 
 /// @nodoc
@@ -1362,6 +1538,7 @@ class __$$UninitializedImplCopyWithImpl<T, $Res>
   $Res call({
     Object? message = null,
     Object? code = null,
+    Object? listTotal = null,
     Object? listData = freezed,
     Object? data = freezed,
   }) {
@@ -1374,6 +1551,10 @@ class __$$UninitializedImplCopyWithImpl<T, $Res>
           ? _value.code
           : code // ignore: cast_nullable_to_non_nullable
               as String,
+      listTotal: null == listTotal
+          ? _value.listTotal
+          : listTotal // ignore: cast_nullable_to_non_nullable
+              as int,
       listData: freezed == listData
           ? _value._listData
           : listData // ignore: cast_nullable_to_non_nullable
@@ -1390,7 +1571,11 @@ class __$$UninitializedImplCopyWithImpl<T, $Res>
 
 class _$UninitializedImpl<T> implements Uninitialized<T> {
   _$UninitializedImpl(
-      {this.message = "", this.code = "", final List<T>? listData, this.data})
+      {this.message = "",
+      this.code = "",
+      this.listTotal = 0,
+      final List<T>? listData,
+      this.data})
       : _listData = listData;
 
   @override
@@ -1399,6 +1584,9 @@ class _$UninitializedImpl<T> implements Uninitialized<T> {
   @override
   @JsonKey()
   final String code;
+  @override
+  @JsonKey()
+  final int listTotal;
   final List<T>? _listData;
   @override
   List<T>? get listData {
@@ -1414,7 +1602,7 @@ class _$UninitializedImpl<T> implements Uninitialized<T> {
 
   @override
   String toString() {
-    return 'Async<$T>.uninitialized(message: $message, code: $code, listData: $listData, data: $data)';
+    return 'Async<$T>.uninitialized(message: $message, code: $code, listTotal: $listTotal, listData: $listData, data: $data)';
   }
 
   @override
@@ -1424,6 +1612,8 @@ class _$UninitializedImpl<T> implements Uninitialized<T> {
             other is _$UninitializedImpl<T> &&
             (identical(other.message, message) || other.message == message) &&
             (identical(other.code, code) || other.code == code) &&
+            (identical(other.listTotal, listTotal) ||
+                other.listTotal == listTotal) &&
             const DeepCollectionEquality().equals(other._listData, _listData) &&
             const DeepCollectionEquality().equals(other.data, data));
   }
@@ -1433,6 +1623,7 @@ class _$UninitializedImpl<T> implements Uninitialized<T> {
       runtimeType,
       message,
       code,
+      listTotal,
       const DeepCollectionEquality().hash(_listData),
       const DeepCollectionEquality().hash(data));
 
@@ -1446,66 +1637,78 @@ class _$UninitializedImpl<T> implements Uninitialized<T> {
   @override
   @optionalTypeArgs
   TResult when<TResult extends Object?>({
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         initializing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         refreshing,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         loading,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         success,
-    required TResult Function(
-            String message, String code, T? data, List<T>? listData)
+    required TResult Function(String message, String code, int listTotal,
+            T? data, List<T>? listData)
         error,
-    required TResult Function(
-            String message, String code, List<T>? listData, T? data)
+    required TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)
         uninitialized,
   }) {
-    return uninitialized(message, code, listData, data);
+    return uninitialized(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult? whenOrNull<TResult extends Object?>({
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult? Function(String message, String code, T? data, List<T>? listData)?
+    TResult? Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult? Function(String message, String code, List<T>? listData, T? data)?
+    TResult? Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
   }) {
-    return uninitialized?.call(message, code, listData, data);
+    return uninitialized?.call(message, code, listTotal, listData, data);
   }
 
   @override
   @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         initializing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         refreshing,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         loading,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         success,
-    TResult Function(String message, String code, T? data, List<T>? listData)?
+    TResult Function(String message, String code, int listTotal, T? data,
+            List<T>? listData)?
         error,
-    TResult Function(String message, String code, List<T>? listData, T? data)?
+    TResult Function(String message, String code, int listTotal,
+            List<T>? listData, T? data)?
         uninitialized,
     required TResult orElse(),
   }) {
     if (uninitialized != null) {
-      return uninitialized(message, code, listData, data);
+      return uninitialized(message, code, listTotal, listData, data);
     }
     return orElse();
   }
@@ -1558,6 +1761,7 @@ abstract class Uninitialized<T> implements Async<T>, _AsyncData<T> {
   factory Uninitialized(
       {final String message,
       final String code,
+      final int listTotal,
       final List<T>? listData,
       final T? data}) = _$UninitializedImpl<T>;
 
@@ -1565,6 +1769,8 @@ abstract class Uninitialized<T> implements Async<T>, _AsyncData<T> {
   String get message;
   @override
   String get code;
+  @override
+  int get listTotal;
   @override
   List<T>? get listData;
   @override
