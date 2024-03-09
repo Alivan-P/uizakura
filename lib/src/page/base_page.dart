@@ -1,9 +1,7 @@
 import 'dart:async';
-
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uizakura/src/widget/after_layout.dart';
-
 import 'auto_dispose_mixin.dart';
 import 'overlay_page_mixin.dart';
 
@@ -42,11 +40,15 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     }
   }
 
+  FutureOr<void> onFirstLayout(BuildContext context) {}
+
   @mustCallSuper
   @override
-  FutureOr<void> afterFirstLayout(BuildContext context) {
+  @visibleForTesting
+  FutureOr<void> afterFirstLayout(BuildContext context) async {
     _isAfterFirstLayout = true;
-    return super.afterFirstLayout(context);
+    if (context.mounted) await super.afterFirstLayout(context);
+    if (context.mounted) await onFirstLayout(context);
   }
 
   @override
