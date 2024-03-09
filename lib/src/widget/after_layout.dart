@@ -15,5 +15,6 @@ mixin AfterLayoutMixin<T extends StatefulWidget> on State<T> {
     );
   }
 
+  @protected
   FutureOr<void> afterFirstLayout(BuildContext context) {}
 }
