@@ -1,14 +1,9 @@
 extension StringExtensions on String? {
-  String get ellipsisBreakWord {
-    if (isNullOrEmpty) {
-      return this ?? "";
+  String ifNullOrEmpty(String els) {
+    if (this == null || this?.isEmpty == true) {
+      return els;
     }
-    String breakWord = ' ';
-    for (var element in (this!).runes) {
-      breakWord += String.fromCharCode(element);
-      breakWord += '\u200B';
-    }
-    return breakWord;
+    return this!;
   }
 
   bool get isNotNullOrEmpty {
