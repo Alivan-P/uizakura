@@ -83,4 +83,26 @@ extension AsyncExtension on Async<dynamic> {
   bool get isRefreshing => this is Refreshing;
 
   bool get isComplete => isSuccess || isError;
+
+  Async<R> transform<R>({
+    R? data,
+    List<R>? listData,
+    int? listTotal,
+    String? code,
+    String? message,
+  }) {
+    return isSuccess
+        ? Async<R>.success(
+            data: data,
+            listData: listData,
+            message: message ?? this.message,
+            code: code ?? this.code,
+            listTotal: listTotal ?? this.listTotal,
+          )
+        : Async<R>.error(
+            message: message ?? this.message,
+            code: code ?? this.code,
+            listTotal: listTotal ?? this.listTotal,
+          );
+  }
 }
