@@ -5,8 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   final _disposeSet = <Function?>[];
-  final _disposeFutures = <Future<dynamic>>[];
-  var _disposed = false;
+  bool _disposed = false;
 
   get disposed => _disposed;
 
@@ -14,15 +13,18 @@ abstract class UizakuraViewModel<T> extends StateNotifier<T> {
     _initialize();
   }
 
+  @protected
   void _initialize() {}
 
   @override
-  @Deprecated("use updateState")
+  @protected
   set state(T value) {
+    if (_disposed) return;
     super.state = (value);
   }
 
   @protected
+  @Deprecated("use state = newState")
   void update(T Function(T state) cb) {
     if (_disposed) return;
     super.state = cb.call(state);
@@ -33,25 +35,54 @@ abstract class UizakuraViewModel<T> extends StateNotifier<T> {
     _disposeSet.add(block);
   }
 
-  @protected
-  void addDisposeFuture(Future<dynamic> future) async {
-    _disposeFutures.add(future);
-  }
-
   @override
   void dispose() {
     super.dispose();
     _disposed = true;
-    for (var element in _disposeSet) {
-      element?.call();
-    }
-    // ignore disposed futures result
     try {
-      for (Future<dynamic> element in _disposeFutures) {
-        element.ignore();
+      for (var element in _disposeSet) {
+        element?.call();
       }
     } catch (e) {
       //
     }
+  }
+}
+
+AutoDisposeStateNotifierProviderFamily<VM, S, ViewModelKey<T>>
+    buildViewModelFactory<VM extends UizakuraViewModel<S>, S,
+        T extends Object>({
+  required VM Function(ViewModelKey<T> key) viewModel,
+}) {
+  return StateNotifierProvider.autoDispose
+      .family<VM, S, ViewModelKey<T>>((ref, key) {
+    return viewModel.call(key);
+  });
+}
+
+@immutable
+class ViewModelKey<T extends Object> {
+  final Object key;
+  final T arg;
+
+  factory ViewModelKey.fromArg(T arg) {
+    return ViewModelKey(key: arg, arg: arg);
+  }
+
+  const ViewModelKey({required this.key, required this.arg});
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is ViewModelKey &&
+          runtimeType == other.runtimeType &&
+          key == other.key;
+
+  @override
+  int get hashCode => key.hashCode;
+
+  @override
+  String toString() {
+    return 'ViewModelKey{key: $key}';
   }
 }
