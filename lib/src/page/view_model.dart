@@ -49,40 +49,52 @@ abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   }
 }
 
-AutoDisposeStateNotifierProviderFamily<VM, S, ViewModelKey<T>>
-    buildViewModelFactory<VM extends UizakuraViewModel<S>, S,
-        T extends Object>({
-  required VM Function(ViewModelKey<T> key) viewModel,
+AutoDisposeStateNotifierProviderFamily<VM, S, ProviderKey<T>>
+    buildLinjieProvider<VM extends UizakuraViewModel<S>, S, T extends Object>({
+  required VM Function(ProviderKey<T> key) viewModel,
 }) {
   return StateNotifierProvider.autoDispose
-      .family<VM, S, ViewModelKey<T>>((ref, key) {
+      .family<VM, S, ProviderKey<T>>((ref, key) {
     return viewModel.call(key);
   });
 }
 
 @immutable
-class ViewModelKey<T extends Object> {
-  final Object key;
+class ProviderKey<T extends Object> {
+  final Object? key;
   final T arg;
 
-  factory ViewModelKey.fromArg(T arg) {
-    return ViewModelKey(key: arg, arg: arg);
+  final Object _defaultKey =
+      "ProviderKey(${DateTime.now().millisecondsSinceEpoch})";
+
+  Object get _key {
+    return key ?? _defaultKey;
   }
 
-  const ViewModelKey({required this.key, required this.arg});
+  factory ProviderKey.fromArg(T arg) {
+    return ProviderKey(key: arg, arg: arg);
+  }
+
+  ProviderKey({
+    this.key,
+    required this.arg,
+  });
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is ViewModelKey &&
-          runtimeType == other.runtimeType &&
-          key == other.key;
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is ProviderKey &&
+            runtimeType == other.runtimeType &&
+            _key == other.key;
+  }
 
   @override
-  int get hashCode => key.hashCode;
+  int get hashCode {
+    return _key.hashCode;
+  }
 
   @override
   String toString() {
-    return 'ViewModelKey{key: $key}';
+    return 'ProviderKey{key: $_key}';
   }
 }
