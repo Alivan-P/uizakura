@@ -1,324 +1,286 @@
 import 'dart:io';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:cached_network_image_platform_interface/cached_network_image_platform_interface.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_cache_manager/flutter_cache_manager.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:uizakura/uizakura.dart';
-
-class _ImageManager {
-  static const key = 'libCachedImageData';
-  static CacheManager cacheManager = CacheManager(
-    Config(
-      key,
-      stalePeriod: const Duration(days: 7),
-      maxNrOfCacheObjects: 1000,
-      repo: JsonCacheInfoRepository(databaseName: key),
-      fileService: HttpFileService(),
-    ),
-  );
-
-  static Future<void> removeFromCache(String? url) async {
-    if (url == null || url.isEmpty) return;
-    PaintingBinding.instance.imageCache.clearLiveImages();
-    return cacheManager.removeFile(url);
-  }
-
-  static void clearCache() {
-    _ImageManager.cacheManager.emptyCache();
-  }
-}
+import 'package:flutter_svg/svg.dart';
+import 'package:http/http.dart' as http;
+import 'package:transparent_image/transparent_image.dart';
+import 'package:uizakura/src/util/encrypt.dart';
 
 class UizakuraImage extends StatefulWidget {
-  static clear() {
-    _ImageManager.clearCache();
-  }
-
-  static CacheManager get cacheManager => _ImageManager.cacheManager;
-
-  static set cacheManager(v) {
-    _ImageManager.cacheManager = v;
-  }
-
-  /// Evict an image from both the disk file based caching system of the
-  /// [BaseCacheManager] as the in memory [ImageCache] of the [ImageProvider].
-  /// [url] is used by both the disk and memory cache. The scale is only used
-  /// to clear the image from the [ImageCache].
-  static Future<void> evictFromCache(String url, {String? cacheKey}) async {
-    debugPrint("evictFromCache :$url");
-    try {
-      _ImageManager.removeFromCache(url);
-    } catch (e) {}
-  }
-
-  /// The target image that is displayed.
   final String? url;
-  final Color? backgroundColor;
   final String assetPath;
   final File? file;
   final Color? tintColor;
-  final Color? placeColor;
-
-  // 每次加载不使用缓存
-  final bool noCache;
-
-  /// Widget displayed while the target [url] is loading.
-  final PlaceholderWidgetBuilder? placeholder;
-
-  /// If non-null, require the image to have this width.
-  ///
-  /// If null, the image will pick a size that best preserves its intrinsic
-  /// aspect ratio. This may result in a sudden change if the size of the
-  /// placeholder widget does not match that of the target image. The size is
-  /// also affected by the scale factor.
+  final Color? placeholderColor;
+  final ImageProvider? placeholderImage;
+  final String? placeholderUrl;
+  final bool cache;
+  final double? size;
   final double? width;
-
-  /// If non-null, require the image to have this height.
-  ///
-  /// If null, the image will pick a size that best preserves its intrinsic
-  /// aspect ratio. This may result in a sudden change if the size of the
-  /// placeholder widget does not match that of the target image. The size is
-  /// also affected by the scale factor.
   final double? height;
-
-  /// How to inscribe the image into the space allocated during layout.
-  ///
-  /// The default varies based on the other fields. See the discussion at
-  /// [paintImage].
+  final BaseCacheManager? cacheManager;
   final BoxFit? fit;
-
-  /// Optional headers for the http request of the image url
+  final BlendMode? colorBlendMode;
+  final Color? color;
   final Map<String, String>? httpHeaders;
+  final Widget Function(
+    BuildContext context,
+    Object error,
+    StackTrace? stackTrace,
+  )? errorWidget;
 
-  /// Widget displayed while the target [url] failed loading.
-  final LoadingErrorWidgetBuilder? errorWidget;
-
-  /// Optional builder to further customize the display of the image.
-  final ImageWidgetBuilder? imageBuilder;
-
-  /// The target image's cache key.
-  final String? cacheKey;
-
-  final CachedNetworkImageProvider _image;
-
-  CachedNetworkImageProvider get imageProvider => _image;
-
-  /// Will resize the image and store the resized image in the disk cache.
-  final int? maxWidthDiskCache;
-
-  /// Will resize the image and store the resized image in the disk cache.
-  final int? maxHeightDiskCache;
-
-  UizakuraImage({
-    Key? key,
+  const UizakuraImage({
+    super.key,
     this.url,
     this.file,
-    this.backgroundColor,
     this.assetPath = "",
     this.tintColor,
-    this.placeColor,
+    this.placeholderColor,
+    this.placeholderImage,
+    this.placeholderUrl,
     this.width,
     this.height,
+    this.size,
     this.fit,
-    this.placeholder,
     this.httpHeaders,
     this.errorWidget,
-    this.imageBuilder,
-    this.maxWidthDiskCache,
-    this.maxHeightDiskCache,
-    this.cacheKey,
-    this.noCache = false,
-  })  : _image = CachedNetworkImageProvider(
-          url ?? "",
-          headers: httpHeaders,
-          cacheManager: _ImageManager.cacheManager,
-          cacheKey: cacheKey,
-          maxWidth: maxWidthDiskCache,
-          maxHeight: maxHeightDiskCache,
-        ),
-        super(
-            key: key ??
-                ValueKey((assetPath.isNotEmpty
-                    ? assetPath
-                    : file != null
-                        ? file.path
-                        : (url ?? ""))));
+    this.cacheManager,
+    this.cache = true,
+    this.colorBlendMode,
+    this.color,
+    ImageRenderMethodForWeb imageRenderMethodForWeb =
+        ImageRenderMethodForWeb.HtmlImage,
+  });
 
   @override
   State<StatefulWidget> createState() {
-    return _CongImage();
+    return _State();
+  }
+
+  static setHttpClient(http.Client client) {
+    _initCacheManager(client);
+  }
+
+  static void _initCacheManager([http.Client? client]) {
+    _cacheManager = CacheManager(
+      Config(
+        _cacheKey,
+        stalePeriod: const Duration(days: 30 * 2),
+        maxNrOfCacheObjects: 1000,
+        repo: JsonCacheInfoRepository(databaseName: _cacheKey),
+        fileService: _HttpFileFetcher(httpClient: client),
+      ),
+    );
+  }
+
+  static const String _cacheKey = 'echo.tech.ImageCache';
+  static CacheManager _cacheManager = CacheManager(
+    Config(
+      _cacheKey,
+      stalePeriod: const Duration(days: 30 * 2),
+      maxNrOfCacheObjects: 1000,
+      repo: JsonCacheInfoRepository(databaseName: _cacheKey),
+      fileService: _HttpFileFetcher(),
+    ),
+  );
+
+  static String _md5Url(String url) {
+    return EncryptUtil.md5(url);
+  }
+
+  static Future<File?> downloadUrl(String url,
+      {Map<String, String>? httpHeaders}) async {
+    try {
+      return (await _cacheManager.downloadFile(
+        url,
+        key: _md5Url(url),
+        authHeaders: httpHeaders,
+      ))
+          .file;
+    } catch (e) {
+      return null;
+    }
+  }
+
+  static Future<File?> getFileWithUrl(String url) async {
+    final res = await _cacheManager.getFileFromCache(_md5Url(url));
+    return res?.file;
+  }
+
+  static Future<void> clear() async {
+    await _cacheManager.emptyCache();
+    PaintingBinding.instance.imageCache.clear();
+    PaintingBinding.instance.imageCache.clearLiveImages();
+  }
+
+  static ImageProvider _buildImageUrlProvider({
+    required String url,
+    Map<String, String>? httpHeaders,
+    bool cache = true,
+    BaseCacheManager? cacheManager,
+  }) {
+    final md5 = _md5Url(url);
+    final cacheKey =
+        !cache ? DateTime.now().millisecondsSinceEpoch.toString() : md5;
+    return CachedNetworkImageProvider(
+      url,
+      cacheManager: cacheManager ?? UizakuraImage._cacheManager,
+      headers: httpHeaders,
+      cacheKey: cacheKey,
+    );
   }
 }
 
-class _CongImage extends State<UizakuraImage> {
-  String get assetPath => widget.assetPath;
-
-  double? get width => widget.width;
-
-  double? get height => widget.height;
-
-  BoxFit? get fit => widget.fit;
-
-  String? get url => widget.url;
-
-  Color? get backgroundColor => widget.backgroundColor;
-
-  LoadingErrorWidgetBuilder? get errorWidget => widget.errorWidget;
-
-  PlaceholderWidgetBuilder? get placeholder => widget.placeholder;
-
-  Color? get placeColor => widget.placeColor;
-
-  Map<String, String>? get httpHeaders => widget.httpHeaders;
-
-  ImageWidgetBuilder? get imageBuilder => widget.imageBuilder;
-
+class _State extends State<UizakuraImage> {
   @override
   Widget build(BuildContext context) {
-    if (widget.cacheKey?.isNotEmpty == true && widget.noCache) {
-      throw const Text(
-        "nocache is true but cacheKey isNotEmpty",
-        style: TextStyle(backgroundColor: Colors.red, color: Colors.white),
-      );
-    }
     return _body(context);
   }
 
   @override
   void didUpdateWidget(covariant UizakuraImage oldWidget) {
     super.didUpdateWidget(oldWidget);
-    if (oldWidget.fit != fit ||
-        oldWidget.width != width ||
-        oldWidget.height != height ||
-        oldWidget.httpHeaders != httpHeaders ||
-        oldWidget.url != url ||
-        oldWidget.assetPath != assetPath ||
-        oldWidget.file != widget.file ||
-        oldWidget.backgroundColor != widget.backgroundColor ||
-        oldWidget.tintColor != widget.tintColor ||
-        oldWidget.placeColor != widget.placeColor ||
-        oldWidget.cacheKey != widget.cacheKey) {
+    if (oldWidget.fit != widget.fit ||
+        oldWidget.width != widget.width ||
+        oldWidget.height != widget.height ||
+        oldWidget.size != widget.size ||
+        oldWidget.assetPath != widget.assetPath) {
       setState(() {});
     }
   }
 
+  double? get _width => widget.size ?? widget.width;
+
+  double? get _height => widget.size ?? widget.height;
+
   Widget _body(BuildContext context) {
+    // file
     if (widget.file != null && widget.file!.path.isNotEmpty) {
       return Image.file(
         widget.file!,
-        width: width,
-        height: height,
-        fit: fit ?? BoxFit.cover,
-        color: widget.tintColor,
-        colorBlendMode: widget.tintColor != null ? BlendMode.dstIn : null,
-        cacheWidth: width != null ? width!.toInt() * 3 : null,
+        width: _width,
+        height: _height,
+        fit: widget.fit ?? BoxFit.cover,
+        cacheWidth: _width != null ? _width!.toInt() * 3 : null,
       );
     }
-    if (assetPath.isNotEmpty) {
-      if (assetPath.endsWith(".svg")) {
+
+    // assetPath
+    if (widget.assetPath.isNotEmpty) {
+      if (widget.assetPath.endsWith(".svg")) {
         return SvgPicture.asset(
-          assetPath,
-          width: width,
+          widget.assetPath,
+          width: _width,
           colorFilter: widget.tintColor != null
               ? ColorFilter.mode(widget.tintColor!, BlendMode.srcIn)
               : null,
-          height: height,
-          fit: fit ?? BoxFit.contain,
+          height: _height,
+          fit: widget.fit ?? BoxFit.contain,
         );
       }
-      return SizedBox(
-        width: width,
-        height: height,
-        child: Image.asset(
-          assetPath,
-          width: width,
-          height: height,
-          color: widget.tintColor,
-          colorBlendMode: widget.tintColor != null ? BlendMode.dstIn : null,
-          fit: fit ?? BoxFit.cover,
-          cacheWidth: width != null ? width!.toInt() * 3 : null,
-        ),
+      return Image.asset(
+        widget.assetPath,
+        width: _width,
+        height: _height,
+        color: widget.tintColor,
+        colorBlendMode: BlendMode.srcIn,
+        fit: widget.fit ?? BoxFit.cover,
+        cacheWidth: _width != null ? _width!.toInt() * 3 : null,
       );
     }
 
-    if (url.isNullOrEmpty) {
-      return defaultErrorWidget(
-        context,
-        "",
-        null,
+    final url = widget.url;
+    if (url == null || url.isEmpty == true) {
+      return const SizedBox.shrink();
+    }
+
+    // url
+    final image = UizakuraImage._buildImageUrlProvider(
+      url: url,
+      httpHeaders: widget.httpHeaders,
+      cache: widget.cache,
+      cacheManager: widget.cacheManager,
+    );
+
+    final ImageProvider transparent = MemoryImage(kTransparentImage);
+    ImageProvider? placeholderImage = widget.placeholderImage;
+    // url 占位优先
+    if (widget.placeholderUrl != null) {
+      placeholderImage = UizakuraImage._buildImageUrlProvider(
+        url: widget.placeholderUrl!,
+        httpHeaders: widget.httpHeaders,
+        cacheManager: widget.cacheManager,
       );
     }
-    final aUrl = url!;
-    return CachedNetworkImage(
-      imageUrl: aUrl,
-      width: width,
-      height: height,
-      fit: fit ?? BoxFit.cover,
-      color: backgroundColor,
-      colorBlendMode: backgroundColor != null ? BlendMode.dstOver : null,
-      fadeInDuration: const Duration(milliseconds: 0),
-      fadeOutDuration: const Duration(milliseconds: 0),
-      placeholder: placeholder ??
-          (BuildContext context, String url) {
-            return (placeColor == null || placeColor == Colors.transparent
-                ? defaultPlaceholderWidget(context, url)
-                : buildColorPlaceholderWidget(context, placeColor));
-          },
-      cacheManager: _ImageManager.cacheManager,
-      httpHeaders: httpHeaders,
-      // 只能设置一个 memCacheWidth，不然会变形，3倍效果最合适，不然会糊
-      memCacheWidth: width == null ? null : ((width?.toInt() ?? 0) * 4),
-      errorWidget: errorWidget ?? defaultErrorWidget,
-      imageBuilder: imageBuilder,
-      cacheKey: widget.cacheKey ??
-          (widget.noCache ? DateTime.now().toString() : aUrl),
+
+    final showColorPlaceholder = widget.placeholderColor != null &&
+        widget.placeholderColor != Colors.transparent;
+
+    return FadeInImage(
+      image: image,
+      placeholder: showColorPlaceholder
+          ? transparent
+          : (placeholderImage ?? transparent),
+      placeholderColor:
+          showColorPlaceholder ? widget.placeholderColor?.withAlpha(50) : null,
+      placeholderFit: null,
+      fadeInDuration: const Duration(milliseconds: 1),
+      fadeOutDuration: const Duration(milliseconds: 1),
+      placeholderColorBlendMode: BlendMode.color,
+      placeholderFilterQuality: null,
+      placeholderErrorBuilder:
+          (BuildContext context, Object error, StackTrace? stackTrace) {
+        debugPrint("UizakuraImage  load ${url} failed $error, $stackTrace");
+        return widget.errorWidget?.call(context, error, stackTrace) ??
+            const SizedBox.shrink();
+      },
+      width: _width,
+      height: _height,
+      imageSemanticLabel: url,
+      fit: widget.fit ?? BoxFit.cover,
+      colorBlendMode: widget.colorBlendMode,
+      color: widget.color,
+      imageErrorBuilder: (
+        BuildContext context,
+        Object error,
+        StackTrace? stackTrace,
+      ) {
+        debugPrint("UizakuraImage  load ${url} failed $error, $stackTrace");
+        return widget.errorWidget?.call(context, error, stackTrace) ??
+            const SizedBox.shrink();
+      },
     );
   }
 
-  Widget defaultErrorWidget(
-    BuildContext context,
-    String url,
-    dynamic error,
-  ) =>
-      Container(
-        width: width,
-        height: height,
-        color: Colors.black12,
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent, width: 0),
-          borderRadius: BorderRadius.circular(0),
-        ),
-        child: const Text("加载失败"),
-      );
-
-  Widget defaultPlaceholderWidget(
-    BuildContext context,
-    String url,
-  ) =>
-      Container(
-        width: width,
-        height: height,
-        color: Colors.black12,
-        foregroundDecoration: BoxDecoration(
-          border: Border.all(color: Colors.transparent, width: 0),
-          borderRadius: BorderRadius.circular(0),
-        ),
-      );
-
-  Widget buildColorPlaceholderWidget(
-    BuildContext context,
-    Color? color,
-  ) =>
-      Container(
-        width: width,
-        height: height,
-        color: color?.withAlpha(50),
-        child: UizakuraAppEnv.isDebug ? Text("${color?.toString()}") : null,
-      );
-
   @override
   void dispose() {
+    // todo cancel(_thumbnailUrl) cancel(loadUrl)
     super.dispose();
-    //debugPrint("conimage $url $resize dispose");
+  }
+}
+
+class _HttpFileFetcher extends FileService {
+  final http.Client? httpClient;
+  late final http.Client _client = http.Client();
+
+  _HttpFileFetcher({this.httpClient});
+
+  http.Client get _httpClient {
+    return httpClient ?? _client;
+  }
+
+  @override
+  Future<FileServiceResponse> get(String url,
+      {Map<String, String>? headers}) async {
+    final http.Request req = http.Request('GET', Uri.parse(url));
+    if (headers != null && headers.isNotEmpty) {
+      req.headers.addAll(headers);
+    }
+    final http.StreamedResponse httpResponse = await _httpClient.send(req);
+
+    return HttpGetResponse(httpResponse);
   }
 }

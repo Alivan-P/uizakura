@@ -19,5 +19,4 @@ class TestPageState extends UizakuraPageState<TestPage> {
     // TODO: implement build
     throw UnimplementedError();
   }
-
 }
