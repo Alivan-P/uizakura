@@ -47,6 +47,7 @@ dependencies:
     git:
       url: https://github.com/lwj1994/flutter_cached_network_image
       path: cached_network_image
+      ref: develop
 
   icloud_storage: ^2.2.0
   dyno: ^0.0.4
@@ -62,8 +63,6 @@ dependencies:
   package_info_plus: ^8.0.0
   device_info_plus: ^10.1.0
   focus_detector_v2: ^3.1.0+1
-  measure_size: ^4.0.0
-  url_launcher: ^6.2.4
   visibility_detector: ^0.4.0+2
   intl: ^0.19.0
   # The following adds the Cupertino Icons font to your application.
