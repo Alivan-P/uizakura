@@ -27,7 +27,13 @@ class UizakuraAppEnv {
 
   static get isAndroid => kIsWeb ? false : Platform.isAndroid;
 
+  static get isIos => kIsWeb ? false : Platform.isIOS;
+
   static get isWindows => kIsWeb ? false : Platform.isWindows;
+
+  static get isLinux => kIsWeb ? false : Platform.isLinux;
+
+  static get isMacOS => kIsWeb ? false : Platform.isMacOS;
 
   static get isMobile => kIsWeb ? false : Platform.isAndroid || Platform.isIOS;
 

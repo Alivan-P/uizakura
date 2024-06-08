@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uizakura/src/widget/after_layout.dart';
+import 'package:uizakura/src/widget/on_first_frame_mixin.dart';
 import 'auto_dispose_mixin.dart';
 import 'overlay_page_mixin.dart';
 
@@ -18,13 +19,13 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     extends ConsumerState<T>
     with
         WidgetsBindingObserver,
-        AfterLayoutMixin<T>,
+        OnFirstFrameEndMixin<T>,
         OverLayerMixin<T>,
         AutoDisposeMixin<T> {
-  bool _isAfterFirstLayout = false;
+  bool _isFirstFrameEnd = false;
 
   @override
-  bool get isAfterFirstLayout => _isAfterFirstLayout;
+  bool get isFirstFrameEnd => _isFirstFrameEnd;
 
   @override
   void initState() {
@@ -40,15 +41,15 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     }
   }
 
-  FutureOr<void> onFirstLayout(BuildContext context) {}
+  FutureOr<void> onFirstFrameLayout(BuildContext context) {}
 
   @mustCallSuper
   @override
   @visibleForTesting
-  FutureOr<void> afterFirstLayout(BuildContext context) async {
-    _isAfterFirstLayout = true;
-    if (context.mounted) await super.afterFirstLayout(context);
-    if (context.mounted) await onFirstLayout(context);
+  FutureOr<void> onFirstFrameEnd(BuildContext context) async {
+    _isFirstFrameEnd = true;
+    if (context.mounted) await super.onFirstFrameEnd(context);
+    if (context.mounted) await onFirstFrameLayout(context);
   }
 
   @override

@@ -4,14 +4,14 @@ import 'package:flutter/widgets.dart';
 import 'package:uizakura/uizakura.dart';
 
 mixin OverLayerMixin<T extends StatefulWidget> on State<T> {
-  bool get isAfterFirstLayout;
+  bool get isFirstFrameEnd;
 
   final OverlayManager _overlayManager = OverlayManager();
 
   Future<OverlayEntry?> showOverlay(Widget child,
       {Color? backgroundColor, Function()? onTap, Duration? duration}) async {
     if (!context.mounted) return null;
-    while (!isAfterFirstLayout) {
+    while (!isFirstFrameEnd) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
     return _overlayManager.show(
@@ -28,7 +28,7 @@ mixin OverLayerMixin<T extends StatefulWidget> on State<T> {
   }
 
   Future<void> showLoading({String? text, bool dismissOnTap = false}) async {
-    while (!isAfterFirstLayout) {
+    while (!isFirstFrameEnd) {
       await Future.delayed(const Duration(milliseconds: 100));
     }
     if (!context.mounted) return;
