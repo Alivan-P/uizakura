@@ -1,88 +1,54 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
-import 'package:uizakura/uizakura.dart';
-import 'package:uizakura/src/widget/click.dart';
 
 /// @author luwenjie on 2023/9/28 16:24:44
 ///
 
 class OverlayManager {
   final List<OverlayEntry> _list = [];
-  OverlayEntry? _loadingEntry;
   final _disposeSet = <Function?>[];
 
-  void dismiss({OverlayEntry? entry}) {
-    if (entry == null) {
-      for (var element in _disposeSet) {
-        element?.call();
-      }
-      for (var element in _list) {
-        element.remove();
-      }
-      _list.clear();
-    } else {
-      for (var element in _list) {
-        if (element == entry) {
-          element.remove();
-        }
-      }
-      _list.remove(entry);
+  dismiss() {
+    for (var element in _disposeSet) {
+      element?.call();
     }
-  }
-
-  showLoading(BuildContext context,
-      {String? text, bool dismissOnTap = true, Widget? child}) {
-    if (_loadingEntry != null) {
-      dismissLoading();
+    for (var element in _list) {
+      element.remove();
     }
-    _loadingEntry = show(context,
-        backgroundColor: Colors.transparent,
-        onTap: dismissOnTap ? dismissLoading : () {},
-        child: Align(
-            alignment: Alignment.center,
-            child: child ??
-                SizedBox.fromSize(
-                  size: const Size.square(30),
-                  child: const CircularProgressIndicator(),
-                )));
+    _list.clear();
   }
 
-  dismissLoading() {
-    _list.remove(_loadingEntry);
-    _loadingEntry?.remove();
-    _loadingEntry = null;
-  }
-
-  /// [backgroundColor] default dialogTheme.shadowColor
   OverlayEntry show(BuildContext context,
       {required Widget child,
-      Color? backgroundColor,
-      Function()? onTap,
-      Duration? duration}) {
-    OverlayEntry? overlayEntry;
-    overlayEntry = OverlayEntry(
+        Color? backgroundColor,
+        Function()? onTap,
+        Duration? duration}) {
+    OverlayEntry overlayEntry = OverlayEntry(
       builder: (BuildContext context) {
-        return Material(
-          type: MaterialType.transparency,
+        return GestureDetector(
+          behavior: HitTestBehavior.opaque,
+          onTap: onTap ??
+                  () {
+                dismiss();
+              },
           child: Container(
-            width: context.screenWidth,
-            height: context.screenHeight,
+            width: MediaQuery.of(context).size.width,
+            height: MediaQuery.of(context).size.height,
             alignment: Alignment.topLeft,
-            color: backgroundColor ?? Theme.of(context).dialogTheme.shadowColor,
+            color: backgroundColor ?? const Color(0xFF000000).withOpacity(0.7),
             child: child,
           ),
         );
       },
     );
+    _list.add(overlayEntry);
     if (duration != null) {
       _disposeSet.add(Timer(duration, () {
-        overlayEntry?.remove();
+        overlayEntry.remove();
       }).cancel);
     }
-    Overlay.of(context).insert(overlayEntry, below: _list.lastOrNull);
-    _list.add(overlayEntry);
+    Overlay.of(context).insert(overlayEntry);
     return overlayEntry;
   }
 }
