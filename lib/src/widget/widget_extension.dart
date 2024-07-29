@@ -90,6 +90,17 @@ extension SliverExtenstion on Widget {
   }
 }
 
+extension WidgetStateExtenstion on State<dynamic> {
+  Future<T> setStateAsync<T>(T Function() callback) {
+    final Completer<T> completer = Completer();
+    setState(() {});
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      completer.complete(callback.call());
+    });
+    return completer.future;
+  }
+}
+
 FutureOr<void> copyToClipboard(String? text) async {
   if (text.isNullOrEmpty) {
     return;

@@ -6,51 +6,77 @@ import 'package:flutter/material.dart';
 ///
 
 class OverlayManager {
-  final List<OverlayEntry> _list = [];
+  final List<OverlayEntryWrapper> _list = [];
   final _disposeSet = <Function?>[];
 
-  dismiss() {
+  void dismiss() {
     for (var element in _disposeSet) {
       element?.call();
     }
     for (var element in _list) {
-      element.remove();
+      element.entry.remove();
     }
     _list.clear();
   }
 
-  OverlayEntry show(BuildContext context,
-      {required Widget child,
-        Color? backgroundColor,
-        Function()? onTap,
-        Duration? duration}) {
+  void removeByEntry(OverlayEntry? entry) {
+    if (entry == null) return;
+    for (int i = 0; i < _list.length; i++) {
+      final e = _list[i];
+      if (e.entry == entry) {
+        e.entry.remove();
+        _list.remove(e);
+        return;
+      }
+    }
+  }
+
+  void removeByTag(Object? tag) {
+    if (tag == null) return;
+    for (int i = 0; i < _list.length; i++) {
+      final e = _list[i];
+      if (e.tag == tag) {
+        e.entry.remove();
+        _list.remove(e);
+        return;
+      }
+    }
+  }
+
+  OverlayEntry show(
+    BuildContext context, {
+    required Widget child,
+    Object? tag,
+    Duration? duration,
+  }) {
     OverlayEntry overlayEntry = OverlayEntry(
       builder: (BuildContext context) {
-        return GestureDetector(
-          behavior: HitTestBehavior.opaque,
-          onTap: onTap ??
-                  () {
-                dismiss();
-              },
-          child: Container(
-            width: MediaQuery.of(context).size.width,
-            height: MediaQuery.of(context).size.height,
-            alignment: Alignment.topLeft,
-            color: backgroundColor ?? const Color(0xFF000000).withOpacity(0.7),
-            child: child,
-          ),
-        );
+        return child;
       },
     );
-    _list.add(overlayEntry);
+    final e = OverlayEntryWrapper(
+      entry: overlayEntry,
+      tag: tag,
+    );
+    _list.add(e);
     if (duration != null) {
       _disposeSet.add(Timer(duration, () {
-        overlayEntry.remove();
+        removeByTag(e.tag);
       }).cancel);
     }
     Overlay.of(context).insert(overlayEntry);
     return overlayEntry;
   }
+}
+
+class OverlayEntryWrapper {
+  final OverlayEntry entry;
+  final Object? tag;
+
+  OverlayEntryWrapper({
+    required this.entry,
+    this.tag,
+  });
 }
 
 extension OverlayContextExtension on BuildContext {

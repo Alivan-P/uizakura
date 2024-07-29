@@ -2,6 +2,8 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 /// @author luwenjie on 2023/4/22 18:26:16
+typedef ViewModelProvider<VM extends UizakuraViewModel<S>, S>
+    = AutoDisposeStateNotifierProvider<VM, S>;
 
 abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   final _disposeSet = <Function?>[];
@@ -16,18 +18,20 @@ abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   @protected
   void _initialize() {}
 
-  @override
   @protected
-  set state(T value) {
-    if (_disposed) return;
-    super.state = (value);
-  }
-
-  @protected
-  @Deprecated("use state = newState")
   void update(T Function(T state) cb) {
     if (_disposed) return;
     super.state = cb.call(state);
+  }
+
+  /// expose for page
+  T get requireState {
+    return super.state;
+  }
+
+  T? get activeState {
+    if (disposed) return null;
+    return requireState;
   }
 
   @protected
@@ -61,23 +65,29 @@ AutoDisposeStateNotifierProviderFamily<VM, S, ProviderKey<T>>
 
 @immutable
 class ProviderKey<T extends Object> {
-  final Object? key;
-  final T arg;
+  final String? key;
+  final dynamic arg;
+
+  T get requireArg {
+    return arg as T;
+  }
 
   final Object _defaultKey =
-      "ProviderKey(${DateTime.now().millisecondsSinceEpoch})";
+      "ProviderKey(${DateTime.now().microsecondsSinceEpoch})";
+
+  static const _reuseKey = "ProviderKey.ReuseKey";
 
   Object get _key {
     return key ?? _defaultKey;
   }
 
-  factory ProviderKey.fromArg(T arg) {
-    return ProviderKey(key: arg, arg: arg);
+  factory ProviderKey.reuse({T? arg}) {
+    return ProviderKey(key: _reuseKey, arg: arg);
   }
 
   ProviderKey({
     this.key,
-    required this.arg,
+    this.arg,
   });
 
   @override

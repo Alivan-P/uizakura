@@ -1,8 +1,11 @@
 import 'dart:async';
+
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:uizakura/src/widget/after_layout.dart';
+import 'package:uizakura/src/page/view_model.dart';
 import 'package:uizakura/src/widget/on_first_frame_mixin.dart';
+import 'package:uizakura/src/widget/widget_extension.dart';
+
 import 'auto_dispose_mixin.dart';
 import 'overlay_page_mixin.dart';
 
@@ -31,6 +34,18 @@ abstract class UizakuraPageState<T extends UizakuraPage>
   void initState() {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
+  }
+
+  Future<VM> refreshProvider<VM extends UizakuraViewModel<dynamic>>(
+    ViewModelProvider<VM, dynamic> provider,
+  ) async {
+    ref.invalidate(provider);
+    return await setStateAsync<VM>(() => getViewModel(provider));
+  }
+
+  VM getViewModel<VM extends UizakuraViewModel<dynamic>>(
+      ViewModelProvider<VM, dynamic> provider) {
+    return ref.read(provider.notifier);
   }
 
   @override

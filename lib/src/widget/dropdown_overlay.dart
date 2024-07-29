@@ -53,74 +53,85 @@ class DropdownOverlayController {
     if (_animation == null) return;
     isShowing = true;
     _dismissFlag = false;
-    _overlayManager.show(_state!.context, backgroundColor: Colors.transparent,
+    final context = _state!.context;
+    _overlayManager.show(
+      _state!.context,
+      child: GestureDetector(
+        behavior: HitTestBehavior.opaque,
         onTap: () {
-      dismiss();
-    },
-        child: AnimatedBuilder(
-          builder: (BuildContext context, Widget? child) {
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.max,
-              children: _state!.widget.reverse
-                  ? [
-                      // mask
-                      Expanded(
-                        child: Opacity(
-                          opacity: _animation!.value,
-                          child: Container(
-                            color: _state!.widget.maskColor ??
-                                const Color(0xFF000000).withOpacity(0.7),
+          dismiss();
+        },
+        child: Container(
+          width: context.screenWidth,
+          height: context.screenHeight,
+          alignment: Alignment.topLeft,
+          child: AnimatedBuilder(
+            builder: (BuildContext context, Widget? child) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisSize: MainAxisSize.max,
+                children: _state!.widget.reverse
+                    ? [
+                        // mask
+                        Expanded(
+                          child: Opacity(
+                            opacity: _animation!.value,
+                            child: Container(
+                              color: _state!.widget.maskColor ??
+                                  const Color(0xFF000000).withOpacity(0.7),
+                            ),
                           ),
                         ),
-                      ),
-                      _buildContent(context),
-                      Offstage(
-                        offstage: true,
-                        child: MeasureSize(
-                            onChange: (Size size) {
-                              _state!._popSize = size;
-                            },
-                            child:
-                                _state!.widget.dropdownBuilder.call(context)),
-                      ),
-                      SizedBox(
-                        height: MediaQuery.of(context).size.height -
-                            _state!._key.globalOffset.dy +
-                            (_state!.widget.offset?.dy ?? 0),
-                      ),
-                    ]
-                  : [
-                      SizedBox(
-                        height: _state!._key.globalOffset.dy +
-                            _state!._key.renderBox.size.height +
-                            (_state!.widget.offset?.dy ?? 0),
-                      ),
-                      Offstage(
-                        offstage: true,
-                        child: MeasureSize(
-                            onChange: (Size size) {
-                              _state!._popSize = size;
-                            },
-                            child:
-                                _state!.widget.dropdownBuilder.call(context)),
-                      ),
-                      _buildContent(context),
-                      // mask
-                      Expanded(
-                        child: Opacity(
-                          opacity: _animation!.value,
-                          child: Container(
-                            color: _state!.widget.maskColor ??
-                                const Color(0xFF000000).withOpacity(0.7),
-                          ),
+                        _buildContent(context),
+                        Offstage(
+                          offstage: true,
+                          child: MeasureSize(
+                              onChange: (Size size) {
+                                _state!._popSize = size;
+                              },
+                              child:
+                                  _state!.widget.dropdownBuilder.call(context)),
                         ),
-                      )
-                    ],
-            );
-          },
-          animation: _animation!,
-        ));
+                        SizedBox(
+                          height: MediaQuery.of(context).size.height -
+                              _state!._key.globalOffset.dy +
+                              (_state!.widget.offset?.dy ?? 0),
+                        ),
+                      ]
+                    : [
+                        SizedBox(
+                          height: _state!._key.globalOffset.dy +
+                              _state!._key.renderBox.size.height +
+                              (_state!.widget.offset?.dy ?? 0),
+                        ),
+                        Offstage(
+                          offstage: true,
+                          child: MeasureSize(
+                              onChange: (Size size) {
+                                _state!._popSize = size;
+                              },
+                              child:
+                                  _state!.widget.dropdownBuilder.call(context)),
+                        ),
+                        _buildContent(context),
+                        // mask
+                        Expanded(
+                          child: Opacity(
+                            opacity: _animation!.value,
+                            child: Container(
+                              color: _state!.widget.maskColor ??
+                                  const Color(0xFF000000).withOpacity(0.7),
+                            ),
+                          ),
+                        )
+                      ],
+              );
+            },
+            animation: _animation!,
+          ),
+        ),
+      ),
+    );
     _state!.widget.onVisibleChanged?.call(true);
     _animController?.animateTo(1);
   }
