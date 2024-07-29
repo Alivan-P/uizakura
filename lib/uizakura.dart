@@ -23,13 +23,14 @@ export "src/util/screen_size.dart";
 export "src/util/string_extension.dart";
 export "src/widget/after_layout.dart";
 export "src/widget/click.dart";
-export "src/widget/image.dart";
+export "src/widget/dropdown_overlay.dart";
+export 'src/widget/image/animation/controller.dart';
+export 'src/widget/image/animation/gif.dart';
+export 'src/widget/image/widget.dart';
 export "src/widget/load_more.dart";
 export "src/widget/notifier.dart";
 export "src/widget/overlay.dart";
 export "src/widget/scroll_extension.dart";
-export "src/widget/dropdown_overlay.dart";
-
 export 'src/widget/toast.dart';
 export 'src/widget/widget_extension.dart';
 
