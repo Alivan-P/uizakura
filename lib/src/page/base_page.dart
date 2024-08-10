@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:uizakura/src/page/view_model.dart';
 import 'package:uizakura/src/widget/on_first_frame_mixin.dart';
 import 'package:uizakura/src/widget/widget_extension.dart';
+import 'package:widget_lifecycle/widget_lifecycle.dart';
 
 import 'auto_dispose_mixin.dart';
 import 'overlay_page_mixin.dart';
@@ -25,10 +26,16 @@ abstract class UizakuraPageState<T extends UizakuraPage>
         OnFirstFrameEndMixin<T>,
         OverLayerMixin<T>,
         AutoDisposeMixin<T> {
-  bool _isFirstFrameEnd = false;
+  late final LifecycleController _lifecycleController = LifecycleController();
+
+  bool _showing = false;
+  bool _disposed = false;
 
   @override
-  bool get isFirstFrameEnd => _isFirstFrameEnd;
+  bool get isDisposed => _disposed || !isMounted;
+
+  @override
+  bool get isShowing => _showing;
 
   @override
   void initState() {
@@ -51,20 +58,24 @@ abstract class UizakuraPageState<T extends UizakuraPage>
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    if (mounted) {
-      setState(() {});
-    }
+    setState();
   }
 
-  FutureOr<void> onFirstFrameLayout(BuildContext context) {}
+  @override
+  void setState([VoidCallback? fn]) {
+    if (isDisposed) return;
+    super.setState(fn ?? () {});
+  }
+
+  FutureOr<void> onFirstShowing(BuildContext context) {}
 
   @mustCallSuper
   @override
   @visibleForTesting
   FutureOr<void> onFirstFrameEnd(BuildContext context) async {
-    _isFirstFrameEnd = true;
-    if (context.mounted) await super.onFirstFrameEnd(context);
-    if (context.mounted) await onFirstFrameLayout(context);
+    _showing = true;
+    if (!isDisposed) await super.onFirstFrameEnd(context);
+    if (!isDisposed) await onFirstShowing(context);
   }
 
   @override
@@ -77,9 +88,32 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     super.didChangeDependencies();
   }
 
+  void onPreBuild(BuildContext context) {}
+
+  @override
+  Widget build(BuildContext context) {
+    onPreBuild(context);
+    return LifecycleAware(
+      callShowOnAppResume: true,
+      callHideOnAppPause: true,
+      controller: _lifecycleController,
+      onShow: () {
+        _showing = true;
+      },
+      onHide: () {
+        _showing = false;
+      },
+      child: buildPage(context),
+    );
+  }
+
+  Widget buildPage(BuildContext context);
+
   @override
   @mustCallSuper
   void dispose() {
+    _showing = false;
+    _disposed = true;
     WidgetsBinding.instance.removeObserver(this);
     super.dispose();
   }

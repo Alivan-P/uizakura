@@ -39,6 +39,10 @@ Future<void> initialize() async {
   await _setHighRate();
 }
 
+Future<void> initializeWithContext(BuildContext context) async {
+  await Toast.initialize(context);
+}
+
 // 适配 coloros 等系统高刷，默认帧率很低
 Future<void> _setHighRate() async {
   try {
@@ -46,8 +50,4 @@ Future<void> _setHighRate() async {
   } catch (e) {
     debugPrint("$e");
   }
-}
-
-Future<void> initializeWithContext(BuildContext context) async {
-  await Toast.initialize(context);
 }

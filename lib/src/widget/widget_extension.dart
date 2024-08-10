@@ -91,6 +91,14 @@ extension SliverExtenstion on Widget {
 }
 
 extension WidgetStateExtenstion on State<dynamic> {
+  bool get isMounted {
+    try {
+      return context.mounted;
+    } catch (e) {
+      return false;
+    }
+  }
+
   Future<T> setStateAsync<T>(T Function() callback) {
     final Completer<T> completer = Completer();
     setState(() {});
