@@ -1,6 +1,3 @@
-/// @author luwenjie on 2024/1/20 00:08:14
-///
-
 extension ListExtensions on List<dynamic> {
   /// remove first element and return it.
   dynamic shift() {

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:visibility_detector/visibility_detector.dart';
 
 /// @author luwenjie on 2023/12/16 22:55:11

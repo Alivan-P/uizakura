@@ -1,9 +1,8 @@
-/// @author luwenjie on 2023/10/5 14:29:35
-
 import 'package:flutter/rendering.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter/widgets.dart';
 
+/// @author luwenjie on 2023/10/5 14:29:35
 typedef AfterLayoutCallback = Function(RenderAfterLayout ral);
 
 /// A widget can retrieve its render object after layout.

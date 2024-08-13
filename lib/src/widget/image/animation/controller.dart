@@ -14,7 +14,7 @@ class GifAnimationController extends AnimationController {
   final int? fps;
 
   GifAnimationController({
-    required TickerProvider vsync,
+    required super.vsync,
     this.autoPlay = true,
     this.loop = true,
     this.fps,
@@ -26,7 +26,7 @@ class GifAnimationController extends AnimationController {
     super.value,
     super.animationBehavior,
     this.useCache = true,
-  }) : super(vsync: vsync);
+  });
 }
 
 ///

@@ -3,8 +3,6 @@ import 'dart:io';
 import 'package:path_provider/path_provider.dart';
 import 'package:uizakura/src/util/string_extension.dart';
 
-import 'env.dart';
-
 /// @author luwenjie on 2023/9/14 23:11:19
 
 class UizakuraFileUtil {

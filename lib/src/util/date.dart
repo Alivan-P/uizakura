@@ -1,5 +1,3 @@
-/// @author luwenjie on 2023/12/24 21:02:23
-
 import 'package:intl/intl.dart';
 
 class UizakuraDateUtil {

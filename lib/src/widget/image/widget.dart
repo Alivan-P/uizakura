@@ -35,7 +35,7 @@ class UizakuraImage extends StatefulWidget {
   )? errorWidget;
 
   const UizakuraImage({
-    Key? key,
+    super.key,
     this.url,
     this.file,
     this.assetPath = "",
@@ -53,7 +53,7 @@ class UizakuraImage extends StatefulWidget {
     this.color,
     this.placeholderBuilder,
     this.errorBuilder,
-  }) : super(key: key);
+  });
 
   @override
   State<StatefulWidget> createState() {
@@ -103,9 +103,9 @@ class UizakuraImage extends StatefulWidget {
         context,
       );
     } catch (e) {
-      return null;
+      return;
     }
-    return null;
+    return;
   }
 
   static Future<File?> getUrlFileCache(

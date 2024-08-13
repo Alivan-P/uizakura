@@ -76,7 +76,7 @@ class UizakuraGif extends StatefulWidget {
   /// If [controller.duration] and [fps] are not specified, the original gif
   /// framerate will be used.
   const UizakuraGif({
-    Key? key,
+    super.key,
     this.image,
     this.controller,
     this.placeholder,
@@ -96,13 +96,14 @@ class UizakuraGif extends StatefulWidget {
     this.centerSlice,
     this.matchTextDirection = false,
     this.url,
-  }) : super(key: key);
+  });
 
   @override
   State<UizakuraGif> createState() => _UizakuraGifState();
 }
 
-class _UizakuraGifState extends State<UizakuraGif> with SingleTickerProviderStateMixin {
+class _UizakuraGifState extends State<UizakuraGif>
+    with SingleTickerProviderStateMixin {
   late final GifAnimationController _controller;
 
   /// List of [ImageInfo] of every frame of this gif.
@@ -152,8 +153,7 @@ class _UizakuraGifState extends State<UizakuraGif> with SingleTickerProviderStat
     super.didUpdateWidget(oldWidget);
     if (widget.controller != oldWidget.controller) {
       oldWidget.controller?.removeListener(_listener);
-      _controller =
-          widget.controller ?? GifAnimationController(vsync: this);
+      _controller = widget.controller ?? GifAnimationController(vsync: this);
       _controller.addListener(_listener);
     }
     if ((widget.url != oldWidget.url)) {

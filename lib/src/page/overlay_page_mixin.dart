@@ -1,5 +1,3 @@
-/// @author luwenjie on 2024/2/28 22:59:26
-///
 import 'package:flutter/material.dart';
 import 'package:uizakura/uizakura.dart';
 

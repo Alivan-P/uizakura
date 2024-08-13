@@ -1,5 +1,3 @@
-/// @author luwenjie on 2023/7/13 00:01:01
-
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 
