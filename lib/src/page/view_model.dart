@@ -5,6 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 typedef ViewModelProvider<VM extends UizakuraViewModel<S>, S>
     = AutoDisposeStateNotifierProvider<VM, S>;
 
+typedef ViewModelProviderBuilder<VM extends UizakuraViewModel<S>, S, ARG>
+    = AutoDisposeStateNotifierProviderFamily<VM, S, ARG>;
+
 abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   final _disposeSet = <Function?>[];
   bool _disposed = false;
@@ -53,8 +56,8 @@ abstract class UizakuraViewModel<T> extends StateNotifier<T> {
   }
 }
 
-AutoDisposeStateNotifierProviderFamily<VM, S, ProviderKey<T>>
-    buildLinjieProvider<VM extends UizakuraViewModel<S>, S, T extends Object>({
+ViewModelProviderBuilder<VM, S, ProviderKey<T>> buildViewModelProvider<
+    VM extends UizakuraViewModel<S>, S, T extends Object>({
   required VM Function(ProviderKey<T> key) viewModel,
 }) {
   return StateNotifierProvider.autoDispose

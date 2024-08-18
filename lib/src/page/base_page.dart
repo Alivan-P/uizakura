@@ -55,14 +55,10 @@ abstract class UizakuraPageState<T extends UizakuraPage>
 
   VM getViewModel<VM extends UizakuraViewModel<dynamic>>(
       ViewModelProvider<VM, dynamic> provider) {
-    return ref.watch(provider.notifier);
+    return ref.read(provider.notifier);
   }
 
   S getState<S extends Object>(ViewModelProvider<dynamic, S> provider) {
-    return ref.read(provider);
-  }
-
-  void addWatch(ViewModelProvider<dynamic, dynamic> provider) {
     return ref.watch(provider);
   }
 
