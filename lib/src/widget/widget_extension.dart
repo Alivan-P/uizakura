@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:flutter/services.dart';
 import 'package:gap/gap.dart';
 import 'package:uizakura/uizakura.dart';
@@ -99,11 +100,20 @@ extension WidgetStateExtenstion on State<dynamic> {
     }
   }
 
-  Future<T> setStateAsync<T>(T Function() callback) {
-    final Completer<T> completer = Completer();
+  Future rebuild() async {
+    if (!mounted) return null;
+    if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
+      await SchedulerBinding.instance.endOfFrame;
+      if (!mounted) return null;
+    }
+    // ignore: invalid_use_of_protected_member
     setState(() {});
+  }
+
+  Future<T> postFrameCallback<T>(T Function() thenCallback) {
+    final Completer<T> completer = Completer();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      completer.complete(callback.call());
+      completer.complete(thenCallback.call());
     });
     return completer.future;
   }

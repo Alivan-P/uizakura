@@ -47,24 +47,45 @@ abstract class UizakuraPageState<T extends UizakuraPage>
     ViewModelProvider<VM, dynamic> provider,
   ) async {
     ref.invalidate(provider);
-    return await setStateAsync<VM>(() => getViewModel(provider));
+    await invalidate();
+    return await postFrameCallback<VM>(() {
+      return getViewModel(provider);
+    });
   }
 
   VM getViewModel<VM extends UizakuraViewModel<dynamic>>(
       ViewModelProvider<VM, dynamic> provider) {
-    return ref.read(provider.notifier);
+    return ref.watch(provider.notifier);
+  }
+
+  S getState<S extends Object>(ViewModelProvider<dynamic, S> provider) {
+    return ref.read(provider);
+  }
+
+  void addWatch(ViewModelProvider<dynamic, dynamic> provider) {
+    return ref.watch(provider);
+  }
+
+  void addListener<S>(
+    ViewModelProvider<dynamic, S> provider, {
+    required void Function(S? previous, S next) listener,
+  }) {
+    return ref.listen(provider, listener,
+        onError: (Object error, StackTrace stackTrace) {
+      debugPrint("addListener error $error, $stackTrace");
+    });
   }
 
   @override
   void didChangePlatformBrightness() {
     super.didChangePlatformBrightness();
-    setState();
+    invalidate();
   }
 
-  @override
-  void setState([VoidCallback? fn]) {
+  Future<void> invalidate([FutureOr Function()? fn]) async {
     if (isDisposed) return;
-    super.setState(fn ?? () {});
+    await fn?.call();
+    rebuild();
   }
 
   FutureOr<void> onFirstShowing(BuildContext context) {}

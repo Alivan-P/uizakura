@@ -73,16 +73,16 @@ class ProviderKey<T extends Object> {
   }
 
   final Object _defaultKey =
-      "ProviderKey(${DateTime.now().microsecondsSinceEpoch})";
+      "uizakura.ProviderKey(${DateTime.now().microsecondsSinceEpoch})";
 
-  static const _reuseKey = "ProviderKey.ReuseKey";
+  static const _uniqueKey = "uizakura.ProviderKey._uniqueKey";
 
   Object get _key {
     return key ?? _defaultKey;
   }
 
-  factory ProviderKey.reuse({T? arg}) {
-    return ProviderKey(key: _reuseKey, arg: arg);
+  factory ProviderKey.unique({T? arg}) {
+    return ProviderKey(key: _uniqueKey, arg: arg);
   }
 
   ProviderKey({
@@ -95,7 +95,7 @@ class ProviderKey<T extends Object> {
     return identical(this, other) ||
         other is ProviderKey &&
             runtimeType == other.runtimeType &&
-            _key == other.key;
+            _key == other._key;
   }
 
   @override
