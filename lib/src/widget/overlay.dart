@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 ///
 
 class OverlayManager {
-  final List<OverlayEntryWrapper> _list = [];
+  final List<OverlayEntryHandle> _list = [];
   final _disposeSet = <Function?>[];
 
-  void dismiss() {
+  void clear() {
     for (var element in _disposeSet) {
       element?.call();
     }
@@ -19,16 +19,10 @@ class OverlayManager {
     _list.clear();
   }
 
-  void removeByEntry(OverlayEntry? entry) {
-    if (entry == null) return;
-    for (int i = 0; i < _list.length; i++) {
-      final e = _list[i];
-      if (e.entry == entry) {
-        e.entry.remove();
-        _list.remove(e);
-        return;
-      }
-    }
+  void removeByHandle(OverlayEntryHandle? handle) {
+    if (handle == null) return;
+    handle.entry.remove();
+    _list.remove(handle);
   }
 
   void removeByTag(Object? tag) {
@@ -43,46 +37,139 @@ class OverlayManager {
     }
   }
 
-  OverlayEntry show(
+  void removeWhere(bool Function(OverlayEntryHandle e) where) {
+    for (int i = 0; i < _list.length; i++) {
+      final e = _list[i];
+      if (where.call(e)) {
+        e.entry.remove();
+        _list.remove(e);
+        return;
+      }
+    }
+  }
+
+  Future<OverlayEntryHandle?> show(
     BuildContext context, {
-    required Widget child,
+    required Widget Function(
+      BuildContext context,
+      OverlayEntryHandle handle,
+    ) builder,
     Object? tag,
+    int priority = 0,
     Duration? duration,
-  }) {
-    OverlayEntry overlayEntry = OverlayEntry(
+    Function(OverlayEntryHandle handle)? onTapOutside,
+    Container? container,
+  }) async {
+    final overlayState = Overlay.maybeOf(context);
+    if (overlayState == null) return null;
+
+    late final OverlayEntryHandle handle;
+    final overlayEntry = OverlayEntry(
       builder: (BuildContext context) {
-        return child;
+        return GestureDetector(
+          onTap: onTapOutside == null
+              ? null
+              : () {
+                  onTapOutside.call(handle);
+                },
+          behavior: onTapOutside == null ? null : HitTestBehavior.opaque,
+          child: Container(
+            padding: container?.padding,
+            alignment: container?.alignment ?? Alignment.topLeft,
+            color: container?.color,
+            decoration: container?.decoration,
+            foregroundDecoration: container?.foregroundDecoration,
+            constraints: container?.constraints,
+            transform: container?.transform,
+            transformAlignment: container?.transformAlignment,
+            clipBehavior: container?.clipBehavior ?? Clip.none,
+            child: GestureDetector(
+                onTap: () {},
+                behavior: HitTestBehavior.opaque,
+                child: builder.call(
+                  context,
+                  handle,
+                )),
+          ),
+        );
       },
     );
-    final e = OverlayEntryWrapper(
+    handle = OverlayEntryHandle(
       entry: overlayEntry,
       tag: tag,
+      priority: priority,
+      manager: this,
     );
-    _list.add(e);
+
+    int insertIndex = -1;
+    OverlayEntryHandle? below;
+    OverlayEntryHandle? above;
+    if (_list.isEmpty) {
+      insertIndex = -1;
+    } else {
+      if (handle.priority >= _list.last.priority) {
+        insertIndex = -1;
+      } else if (handle.priority < _list.first.priority) {
+        above = _list.first;
+        insertIndex = 0;
+      } else {
+        for (int i = _list.length - 1; i >= 0; i--) {
+          final e = _list[i];
+          if (handle.priority >= e.priority) {
+            below = e;
+            insertIndex = i;
+            break;
+          }
+        }
+      }
+    }
+
+    if (insertIndex >= 0) {
+      _list.insert(insertIndex, handle);
+    } else {
+      _list.add(handle);
+    }
+
     if (duration != null) {
       _disposeSet.add(Timer(duration, () {
-        removeByTag(e.tag);
+        removeByHandle(handle);
       }).cancel);
     }
-    Overlay.of(context).insert(overlayEntry);
-    return overlayEntry;
+    overlayState.insert(
+      overlayEntry,
+      below: below?.entry,
+      above: above?.entry,
+    );
+    return handle;
   }
 }
 
-class OverlayEntryWrapper {
+class OverlayEntryHandle {
   final OverlayEntry entry;
   final Object? tag;
+  final OverlayManager manager;
+  final int priority;
 
-  OverlayEntryWrapper({
+  OverlayEntryHandle({
     required this.entry,
     this.tag,
+    this.priority = 0,
+    required this.manager,
   });
-}
 
-extension OverlayContextExtension on BuildContext {
-  OverlayState get overlayState => Overlay.of(this);
-
-  show(OverlayEntry child) {
-    overlayState.insert(child);
+  void dismiss() {
+    manager.removeByHandle(this);
   }
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is OverlayEntryHandle &&
+          runtimeType == other.runtimeType &&
+          entry == other.entry &&
+          tag == other.tag &&
+          priority == other.priority;
+
+  @override
+  int get hashCode => entry.hashCode ^ tag.hashCode ^ priority.hashCode;
 }

@@ -100,11 +100,11 @@ extension WidgetStateExtenstion on State<dynamic> {
     }
   }
 
-  Future rebuild() async {
-    if (!mounted) return null;
+  Future<void> rebuild() async {
+    if (!mounted) return;
     if (SchedulerBinding.instance.schedulerPhase != SchedulerPhase.idle) {
       await SchedulerBinding.instance.endOfFrame;
-      if (!mounted) return null;
+      if (!mounted) return;
     }
     // ignore: invalid_use_of_protected_member
     setState(() {});

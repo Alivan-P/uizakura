@@ -1,13 +1,15 @@
+/// @author luwenjie on 2023/11/13 17:18:11
+
 import 'package:flutter/material.dart';
-import 'package:uizakura/src/widget/overlay.dart';
 import 'package:uizakura/src/widget/widget_extension.dart';
 
 import 'measure_size.dart';
+import 'overlay.dart';
 
 /// @author luwenjie on 2023/11/13 15:58:06
 ///
 
-class DropdownOverlayController {
+class DropdownController {
   final _overlayManager = OverlayManager();
   AnimationController? _animController;
   Animation<double>? _animation;
@@ -44,24 +46,23 @@ class DropdownOverlayController {
     );
   }
 
-  show() {
+  void show() {
     if (_state == null) return;
     if (_animController == null) return;
     if (_animation == null) return;
     isShowing = true;
     _dismissFlag = false;
-    final context = _state!.context;
-    _overlayManager.show(
-      _state!.context,
-      child: GestureDetector(
+    _overlayManager.show(_state!.context, builder: (context, handle) {
+      return GestureDetector(
         behavior: HitTestBehavior.opaque,
         onTap: () {
           dismiss();
         },
         child: Container(
-          width: context.screenWidth,
-          height: context.screenHeight,
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
           alignment: Alignment.topLeft,
+          color: Colors.transparent,
           child: AnimatedBuilder(
             builder: (BuildContext context, Widget? child) {
               return Column(
@@ -127,8 +128,8 @@ class DropdownOverlayController {
             animation: _animation!,
           ),
         ),
-      ),
-    );
+      );
+    });
     _state!.widget.onVisibleChanged?.call(true);
     _animController?.animateTo(1);
   }
@@ -145,7 +146,7 @@ class DropdownOverlayController {
     );
     _animController?.addListener(() {
       if (_animController?.value == 0 && _dismissFlag) {
-        _overlayManager.dismiss();
+        _overlayManager.clear();
         _dismissFlag = false;
       }
     });
@@ -156,14 +157,14 @@ class DropdownOverlayController {
     _animController = null;
     _animation = null;
     _state = null;
-    _overlayManager.dismiss();
+    _overlayManager.clear();
   }
 }
 
-class DropdownOverlay extends StatefulWidget {
+class DropdownButton extends StatefulWidget {
   final Widget child;
   final WidgetBuilder dropdownBuilder;
-  final DropdownOverlayController? controller;
+  final DropdownController? controller;
   final Color? maskColor;
   final Duration? animDuration;
   final bool reverse;
@@ -172,7 +173,7 @@ class DropdownOverlay extends StatefulWidget {
 
   final Function(bool visible)? onVisibleChanged;
 
-  const DropdownOverlay(
+  const DropdownButton(
       {super.key,
       this.maskColor,
       required this.child,
@@ -190,10 +191,9 @@ class DropdownOverlay extends StatefulWidget {
   }
 }
 
-class _State extends State<DropdownOverlay>
-    with SingleTickerProviderStateMixin {
-  late final DropdownOverlayController _controller =
-      widget.controller ?? DropdownOverlayController();
+class _State extends State<DropdownButton> with SingleTickerProviderStateMixin {
+  late final DropdownController _controller =
+      widget.controller ?? DropdownController();
   final GlobalKey _key = GlobalKey();
 
   Size? _popSize;
