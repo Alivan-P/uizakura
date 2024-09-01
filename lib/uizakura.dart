@@ -29,8 +29,11 @@ export 'src/widget/image/animation/gif.dart';
 export 'src/widget/image/widget.dart';
 export "src/widget/load_more.dart";
 export "src/widget/notifier.dart";
-export "src/widget/overlay.dart";
+export "src/widget/overlay/anim.dart";
+export "src/widget/overlay/overlay.dart";
+export "src/widget/overlay/widget.dart";
 export "src/widget/scroll_extension.dart";
+export "src/widget/snackbar/widget.dart";
 export 'src/widget/toast.dart';
 export 'src/widget/widget_extension.dart';
 

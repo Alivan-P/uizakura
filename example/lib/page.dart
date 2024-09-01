@@ -21,7 +21,8 @@ class RiverpodPage extends UizakuraPage {
 }
 
 class _State extends UizakuraPageState<RiverpodPage> {
-  late ViewModelProvider<ViewModel, String> _provider = provider(ProviderKey(
+  late final ViewModelProvider<ViewModel, String> _provider =
+      provider(ProviderKey(
     arg: widget.id,
   ));
 
@@ -43,7 +44,7 @@ class _State extends UizakuraPageState<RiverpodPage> {
       }),
       appBar: AppBar(
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () {
             appRouter.maybePop();
           },
@@ -54,13 +55,13 @@ class _State extends UizakuraPageState<RiverpodPage> {
         children: [
           Text(
             _state,
-            style: TextStyle(color: Colors.red),
+            style: const TextStyle(color: Colors.red),
           ),
           FilledButton(
               onPressed: () async {
                 debugPrint("page._viewModel = ${_viewModel.hashCode}");
               },
-              child: Text("invalide not change id")),
+              child: const Text("invalide not change id")),
           FilledButton(
               onPressed: () async {
                 refreshProvider(_provider);
@@ -69,13 +70,13 @@ class _State extends UizakuraPageState<RiverpodPage> {
                 // });
                 // _updateViewModel();
               },
-              child: Text("invalide with change id")),
+              child: const Text("invalide with change id")),
           FilledButton(
               onPressed: () {
                 debugPrint("page._viewModel = ${_viewModel.hashCode}");
                 debugPrint("page.state = ${_viewModel.state}");
               },
-              child: Text("call viewmodel")),
+              child: const Text("call viewmodel")),
         ],
       ),
     );
@@ -100,13 +101,13 @@ class ViewModel extends UizakuraViewModel<String> {
   final String id;
 
   ViewModel(super.state, this.id) {
-    debugPrint("create ViewModel ${id} ${this.hashCode}");
+    debugPrint("create ViewModel $id $hashCode");
   }
 
   @override
   void dispose() {
     super.dispose();
-    debugPrint("dispose ViewModel ${id} ${this.hashCode}");
+    debugPrint("dispose ViewModel $id $hashCode");
   }
 
   void setId() {

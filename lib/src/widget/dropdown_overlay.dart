@@ -1,15 +1,16 @@
 /// @author luwenjie on 2023/11/13 17:18:11
+library;
 
 import 'package:flutter/material.dart';
 import 'package:uizakura/src/widget/widget_extension.dart';
 
 import 'measure_size.dart';
-import 'overlay.dart';
+import 'overlay/overlay.dart';
 
 /// @author luwenjie on 2023/11/13 15:58:06
 ///
 
-class DropdownController {
+class DropdownViewController {
   final _overlayManager = OverlayManager();
   AnimationController? _animController;
   Animation<double>? _animation;
@@ -161,10 +162,10 @@ class DropdownController {
   }
 }
 
-class DropdownButton extends StatefulWidget {
+class DropdownView extends StatefulWidget {
   final Widget child;
   final WidgetBuilder dropdownBuilder;
-  final DropdownController? controller;
+  final DropdownViewController? controller;
   final Color? maskColor;
   final Duration? animDuration;
   final bool reverse;
@@ -173,7 +174,7 @@ class DropdownButton extends StatefulWidget {
 
   final Function(bool visible)? onVisibleChanged;
 
-  const DropdownButton(
+  const DropdownView(
       {super.key,
       this.maskColor,
       required this.child,
@@ -191,9 +192,9 @@ class DropdownButton extends StatefulWidget {
   }
 }
 
-class _State extends State<DropdownButton> with SingleTickerProviderStateMixin {
-  late final DropdownController _controller =
-      widget.controller ?? DropdownController();
+class _State extends State<DropdownView> with SingleTickerProviderStateMixin {
+  late final DropdownViewController _controller =
+      widget.controller ?? DropdownViewController();
   final GlobalKey _key = GlobalKey();
 
   Size? _popSize;

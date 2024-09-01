@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:uizakura/src/widget/overlay/overlay.dart';
 
-mixin OverLayerWidgetStateMixin<T extends StatefulWidget> on State<T> {
+import 'overlay.dart';
+
+mixin OverLayStateMixin<T extends StatefulWidget> on State<T> {
   final OverlayManager _overlayManager = OverlayManager();
 
   @protected

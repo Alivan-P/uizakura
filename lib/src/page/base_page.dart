@@ -84,13 +84,21 @@ abstract class UizakuraPageState<T extends UizakuraPage>
       controller: _lifecycleController,
       onShow: () {
         _showing = true;
+        onShow();
       },
       onHide: () {
         _showing = false;
+        onHide();
       },
       child: buildPage(context),
     );
   }
+
+  @protected
+  void onShow() {}
+
+  @protected
+  void onHide() {}
 
   Widget buildPage(BuildContext context);
 
@@ -123,7 +131,7 @@ extension RiverpodStateExtension on ConsumerState {
     if (provider is AutoDisposeStateNotifierProvider<VM, S>) {
       return ref.read(provider.notifier as ProviderListenable) as VM;
     }
-    throw Exception("unSupport provider ${provider.runtimeType} <${VM}, ${S}>");
+    throw Exception("unSupport provider ${provider.runtimeType} <$VM, $S>");
   }
 
   S getState<S>(ProviderListenable<S> provider) {
