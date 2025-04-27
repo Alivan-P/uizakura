@@ -288,7 +288,13 @@ class _CongImage extends State<UizakuraImage> {
           border: Border.all(color: Colors.transparent, width: 0),
           borderRadius: BorderRadius.circular(0),
         ),
-        child: const Text("加载失败"),
+        child: SvgPicture.asset(
+          'assets/images/error_placeholder.svg',
+          width: width,
+          height: height,
+          fit: fit ?? BoxFit.contain,
+          package: 'uizakura',
+        ),
       );
 
   Widget defaultPlaceholderWidget(
