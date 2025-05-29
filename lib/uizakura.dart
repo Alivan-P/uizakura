@@ -30,6 +30,7 @@ export "src/widget/load_more.dart";
 export "src/widget/notifier.dart";
 export "src/widget/overlay.dart";
 export "src/widget/scroll_extension.dart";
+export 'src/widget/non_blocking_loading.dart';
 
 /// @author luwenjie on 2023/9/15 00:11:57
 

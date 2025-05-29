@@ -43,9 +43,22 @@ mixin OverLayerMixin<T extends StatefulWidget> on State<T> {
     _overlayManager.dismissLoading();
   }
 
+  Future<void> showNonBlockingLoading({String? text}) async {
+    while (!isAfterFirstLayout) {
+      await Future.delayed(const Duration(milliseconds: 100));
+    }
+    if (!context.mounted) return;
+    NonBlockingLoading.show(context, text: text);
+  }
+
+  Future<void> dismissNonBlockingLoading() async {
+    NonBlockingLoading.dismiss();
+  }
+
   @override
   void dispose() {
     super.dispose();
     _overlayManager.dismiss();
+    NonBlockingLoading.dismiss();
   }
 }
